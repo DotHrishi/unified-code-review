@@ -434,6 +434,13 @@
             <span class="toc-sub">Severity by Area &amp; Overview</span>
           </div>
         </a>
+        <a href="#section-database" class="toc-card">
+          <span class="toc-num">DB</span>
+          <div class="toc-info">
+            <span class="toc-title">Database Review</span>
+            <span class="toc-sub">Schema, Integrity &amp; Performance</span>
+          </div>
+        </a>
         <a href="#section-frontend" class="toc-card">
           <span class="toc-num">2</span>
           <div class="toc-info">
@@ -591,6 +598,161 @@
       </div>
       <div style="margin-top: 1rem; color: var(--text-muted); font-size: 0.85rem;">
         <strong>Scope:</strong> Full-stack code review of Next.js 14 application across Frontend (12 categories including Accessibility), Backend Server Actions &amp; Middleware (15 categories), and API Layer (15 categories).
+      </div>
+    </section>
+
+    <!-- DATABASE REVIEW -->
+    <section class="report-section" id="section-database">
+      <div class="section-header">
+        <h2>DATABASE REVIEW</h2>
+        <span class="section-count">1 Total Finding</span>
+      </div>
+      <div id="section-database-content">
+        <!-- Connectivity Block -->
+        <div class="category-block" style="margin-bottom: 1.25rem;">
+          <div class="category-header">
+            <div class="category-title-wrap">
+              <span class="category-num">●</span>
+              <h3>Connection Status</h3>
+            </div>
+            <span class="cat-badge" style="background: var(--card-border); color: var(--text);">Status: not_configured</span>
+          </div>
+          <div class="category-content">
+            <div style="background: rgba(249, 115, 22, 0.1); border-left: 4px solid var(--high); padding: 0.85rem 1rem; border-radius: 4px; margin-bottom: 1rem;" role="alert">
+              <div style="font-weight: 700; color: var(--high); font-size: 0.95rem; margin-bottom: 0.25rem;">Live Database Was Not Assessed</div>
+              <p style="font-size: 0.88rem; color: var(--text);">Status in words: <strong>not_configured (Not Connected)</strong>.</p>
+              <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 0.25rem;"><em>Recorded reason:</em> &ldquo;Required connection-setting variable DATABASE_URL is not set in the shell environment. Per binding constraints, live connection was skipped without guessing credentials or modifying environment/containers.&rdquo;</p>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem;">The live database was not assessed; live metrics and row figures are not available.</p>
+            </div>
+            <table>
+              <tbody>
+                <tr>
+                  <td style="width: 25%;"><strong>Engine:</strong></td>
+                  <td>PostgreSQL</td>
+                  <td style="width: 25%;"><strong>Version:</strong></td>
+                  <td>Not assessed (Live inactive)</td>
+                </tr>
+                <tr>
+                  <td><strong>Encrypted (TLS):</strong></td>
+                  <td>No (unencrypted)</td>
+                  <td><strong>Read-Only Session:</strong></td>
+                  <td>Yes (read-only session)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Schema Overview -->
+        <div class="area-table-wrapper" style="margin-bottom: 1.25rem;">
+          <div class="area-table-title">Schema Overview</div>
+          <div class="exec-stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="stat-card">
+              <div class="stat-val stat-total">0</div>
+              <div class="stat-label">Tables</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val stat-total">0</div>
+              <div class="stat-label">Columns</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val stat-total">0</div>
+              <div class="stat-label">Indexes</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val stat-total">0</div>
+              <div class="stat-label">Foreign Keys</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Database Findings -->
+        <div class="category-block" style="margin-bottom: 1.25rem;">
+          <div class="category-header">
+            <div class="category-title-wrap">
+              <span class="category-num">●</span>
+              <h3>Database Findings</h3>
+            </div>
+            <span class="cat-badge has-findings">1 Finding</span>
+          </div>
+          <div class="category-content">
+            <div class="finding-card high" id="DB-SEC-001">
+              <div class="finding-header">
+                <div class="finding-title-group">
+                  <span class="finding-id">DB-SEC-001</span>
+                  <span class="badge badge-high">High</span>
+                  <h4 class="finding-title">Database client pool TLS certificate validation disabled</h4>
+                </div>
+                <div class="finding-meta-tags">
+                  <span class="meta-tag"><strong>Layer:</strong> DATABASE</span>
+                  <span class="meta-tag"><strong>Object:</strong> <code>backend/config/db.ts (pg.Pool)</code></span>
+                  <span class="meta-tag"><strong>Source:</strong> declared in code</span>
+                  <span class="meta-tag"><strong>Category:</strong> Security and sensitive data</span>
+                </div>
+              </div>
+              <div class="location-bar">
+                <strong>Location:</strong> <code>backend/config/db.ts:8-10</code>
+              </div>
+              <div class="finding-body">
+                <div class="field-block">
+                  <div class="field-label">Description</div>
+                  <div class="field-content">TLS certificate validation is explicitly disabled with rejectUnauthorized: false, making database traffic vulnerable to man-in-the-middle attacks.</div>
+                </div>
+                <div class="field-block evidence-block">
+                  <div class="field-label">Evidence / Snippet</div>
+                  <pre class="evidence-code"><code>ssl: {
+  rejectUnauthorized: false
+}</code></pre>
+                </div>
+                <div class="field-block rec-block">
+                  <div class="field-label">Remediation</div>
+                  <div class="field-content">Require valid TLS certificates in production environments by configuring verified root CA certificates or removing rejectUnauthorized: false.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schema Drift -->
+        <div class="category-block" style="margin-bottom: 1.25rem;">
+          <div class="category-header">
+            <div class="category-title-wrap">
+              <span class="category-num">●</span>
+              <h3>Schema Drift</h3>
+            </div>
+            <span class="cat-badge zero-findings">0 Drift Items</span>
+          </div>
+          <div class="category-content">
+            <p class="empty-category-notice">No schema drift detected between code definitions and live catalog (live connection inactive).</p>
+          </div>
+        </div>
+
+        <!-- Not Inspected -->
+        <div class="category-block">
+          <div class="category-header">
+            <div class="category-title-wrap">
+              <span class="category-num">●</span>
+              <h3>Not Inspected</h3>
+            </div>
+            <span class="cat-badge zero-findings">1 Item</span>
+          </div>
+          <div class="category-content">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 30%;">Object / Check ID</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>ALL_LIVE_CHECKS</code></td>
+                  <td>Database connection status is not_configured: DATABASE_URL is not set in the shell environment.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -3571,6 +3733,362 @@
           const text = document.getElementById('theme-text');
           if (icon) icon.textContent = '☀️';
           if (text) text.textContent = 'Light Theme';
+        }
+      } catch(e) {}
+    })();
+
+    // Report data model with top-level database object
+    window.__REPORT__ = {
+      "database": {
+        "live_review": false,
+        "connection": {
+          "status": "not_configured",
+          "engine": "PostgreSQL",
+          "version": null,
+          "encrypted": false,
+          "read_only_session": true,
+          "error_text": "Required connection-setting variable DATABASE_URL is not set in the shell environment. Per binding constraints, live connection was skipped without guessing credentials or modifying environment/containers."
+        },
+        "schema_summary": {
+          "tables_count": 0,
+          "columns_count": 0,
+          "indexes_count": 0,
+          "foreign_keys_count": 0
+        },
+        "findings": [
+          {
+            "id": "DB-SEC-001",
+            "severity": "High",
+            "object_name": "backend/config/db.ts (pg.Pool)",
+            "source": "declared in code",
+            "category": "Security and sensitive data",
+            "title": "Database client pool TLS certificate validation disabled",
+            "description": "TLS certificate validation is explicitly disabled with rejectUnauthorized: false, making database traffic vulnerable to man-in-the-middle attacks.",
+            "suggestion": "Require valid TLS certificates in production environments by configuring verified root CA certificates or removing rejectUnauthorized: false.",
+            "evidence_query": "ssl: {\n  rejectUnauthorized: false\n}",
+            "location": "backend/config/db.ts:8-10"
+          }
+        ],
+        "drift": [],
+        "not_inspected": [
+          {
+            "object": "ALL_LIVE_CHECKS",
+            "reason": "Database connection status is not_configured: DATABASE_URL is not set in the shell environment."
+          }
+        ]
+      }
+    };
+
+    function escapeHtml(str) {
+      if (str == null) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function renderDatabaseSection(data) {
+      const dbData = data && data.database ? data.database : (window.__REPORT__ && window.__REPORT__.database ? window.__REPORT__.database : null);
+      if (!dbData) return;
+      const container = document.getElementById('section-database-content');
+      if (!container) return;
+
+      const conn = dbData.connection || {};
+      const status = conn.status || 'not_configured';
+      const isConnected = status === 'connected';
+      const engine = conn.engine || 'Unknown';
+      const version = conn.version || (isConnected ? 'Unknown' : 'Not assessed (Live inactive)');
+      const encrypted = conn.encrypted ? 'Yes (encrypted)' : 'No (unencrypted)';
+      const readOnly = conn.read_only_session ? 'Yes (read-only session)' : 'Not enforced';
+      const errorText = conn.error_text || 'Live database connection was not established.';
+
+      let connHtml = '';
+      if (!isConnected) {
+        connHtml = `
+          <div class="category-block" style="margin-bottom: 1.25rem;">
+            <div class="category-header">
+              <div class="category-title-wrap">
+                <span class="category-num">●</span>
+                <h3>Connection Status</h3>
+              </div>
+              <span class="cat-badge" style="background: var(--card-border); color: var(--text);">Status: ${escapeHtml(status)}</span>
+            </div>
+            <div class="category-content">
+              <div style="background: rgba(249, 115, 22, 0.1); border-left: 4px solid var(--high); padding: 0.85rem 1rem; border-radius: 4px; margin-bottom: 1rem;" role="alert">
+                <div style="font-weight: 700; color: var(--high); font-size: 0.95rem; margin-bottom: 0.25rem;">Live Database Was Not Assessed</div>
+                <p style="font-size: 0.88rem; color: var(--text);">Status in words: <strong>${escapeHtml(status)} (Not Connected)</strong>.</p>
+                <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 0.25rem;"><em>Recorded reason:</em> &ldquo;${escapeHtml(errorText)}&rdquo;</p>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem;">The live database was not assessed; live metrics and row figures are not available.</p>
+              </div>
+              <table>
+                <tbody>
+                  <tr>
+                    <td style="width: 25%;"><strong>Engine:</strong></td>
+                    <td>${escapeHtml(engine)}</td>
+                    <td style="width: 25%;"><strong>Version:</strong></td>
+                    <td>${escapeHtml(version)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Encrypted (TLS):</strong></td>
+                    <td>${escapeHtml(encrypted)}</td>
+                    <td><strong>Read-Only Session:</strong></td>
+                    <td>${escapeHtml(readOnly)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      } else {
+        connHtml = `
+          <div class="category-block" style="margin-bottom: 1.25rem;">
+            <div class="category-header">
+              <div class="category-title-wrap">
+                <span class="category-num">●</span>
+                <h3>Connection Status</h3>
+              </div>
+              <span class="cat-badge has-findings" style="background: var(--low); color: #fff;">Status: connected</span>
+            </div>
+            <div class="category-content">
+              <p style="font-size: 0.88rem; margin-bottom: 0.75rem;">Status in words: <strong>connected</strong>. Live database verified via read-only session.</p>
+              <table>
+                <tbody>
+                  <tr>
+                    <td style="width: 25%;"><strong>Engine:</strong></td>
+                    <td>${escapeHtml(engine)}</td>
+                    <td style="width: 25%;"><strong>Version:</strong></td>
+                    <td>${escapeHtml(version)}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Encrypted (TLS):</strong></td>
+                    <td>${escapeHtml(encrypted)}</td>
+                    <td><strong>Read-Only Session:</strong></td>
+                    <td>${escapeHtml(readOnly)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      const summary = dbData.schema_summary || {};
+      const tablesCount = summary.tables_count != null ? summary.tables_count : (isConnected ? 0 : 'N/A');
+      const colsCount = summary.columns_count != null ? summary.columns_count : (isConnected ? 0 : 'N/A');
+      const idxCount = summary.indexes_count != null ? summary.indexes_count : (isConnected ? 0 : 'N/A');
+      const fkCount = summary.foreign_keys_count != null ? summary.foreign_keys_count : (isConnected ? 0 : 'N/A');
+
+      const overviewHtml = `
+        <div class="area-table-wrapper" style="margin-bottom: 1.25rem;">
+          <div class="area-table-title">Schema Overview</div>
+          <div class="exec-stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="stat-card">
+              <div class="stat-val stat-total">${escapeHtml(String(tablesCount))}</div>
+              <div class="stat-label">Tables</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val stat-total">${escapeHtml(String(colsCount))}</div>
+              <div class="stat-label">Columns</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val stat-total">${escapeHtml(String(idxCount))}</div>
+              <div class="stat-label">Indexes</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val stat-total">${escapeHtml(String(fkCount))}</div>
+              <div class="stat-label">Foreign Keys</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const findings = dbData.findings || [];
+      let findingsHtml = '';
+      if (findings.length === 0) {
+        findingsHtml = `
+          <div class="category-block" style="margin-bottom: 1.25rem;">
+            <div class="category-header">
+              <div class="category-title-wrap">
+                <span class="category-num">●</span>
+                <h3>Database Findings</h3>
+              </div>
+              <span class="cat-badge zero-findings">0 Findings</span>
+            </div>
+            <div class="category-content">
+              <p class="empty-category-notice">No database findings recorded.</p>
+            </div>
+          </div>
+        `;
+      } else {
+        findingsHtml = `
+          <div class="category-block" style="margin-bottom: 1.25rem;">
+            <div class="category-header">
+              <div class="category-title-wrap">
+                <span class="category-num">●</span>
+                <h3>Database Findings</h3>
+              </div>
+              <span class="cat-badge has-findings">${findings.length} ${findings.length === 1 ? 'Finding' : 'Findings'}</span>
+            </div>
+            <div class="category-content">
+              ${findings.map((f, i) => {
+                const sev = (f.severity || 'low').toLowerCase();
+                const badgeSev = sev === 'critical' ? 'badge-critical' : sev === 'high' ? 'badge-high' : sev === 'medium' ? 'badge-medium' : 'badge-low';
+                const fId = f.id || ('DB-FND-' + String(i + 1).padStart(3, '0'));
+                const snippet = f.evidence_query || f.code_snippet || '';
+                const location = f.location || f.file || '';
+                return `
+                  <div class="finding-card ${sev}" id="${escapeHtml(fId)}">
+                    <div class="finding-header">
+                      <div class="finding-title-group">
+                        <span class="finding-id">${escapeHtml(fId)}</span>
+                        <span class="badge ${badgeSev}">${escapeHtml(f.severity || 'Low')}</span>
+                        <h4 class="finding-title">${escapeHtml(f.title || f.message || '')}</h4>
+                      </div>
+                      <div class="finding-meta-tags">
+                        <span class="meta-tag"><strong>Layer:</strong> DATABASE</span>
+                        <span class="meta-tag"><strong>Object:</strong> <code>${escapeHtml(f.object_name || f.object || 'Database')}</code></span>
+                        <span class="meta-tag"><strong>Source:</strong> ${escapeHtml(f.source || 'declared in code')}</span>
+                        <span class="meta-tag"><strong>Category:</strong> ${escapeHtml(f.category || 'Database')}</span>
+                      </div>
+                    </div>
+                    ${location ? `<div class="location-bar"><strong>Location:</strong> <code>${escapeHtml(location)}</code></div>` : ''}
+                    <div class="finding-body">
+                      <div class="field-block">
+                        <div class="field-label">Description</div>
+                        <div class="field-content">${escapeHtml(f.description || f.message || '')}</div>
+                      </div>
+                      ${snippet ? `
+                        <div class="field-block evidence-block">
+                          <div class="field-label">Evidence / Snippet</div>
+                          <pre class="evidence-code"><code>${escapeHtml(snippet)}</code></pre>
+                        </div>
+                      ` : ''}
+                      ${f.suggestion ? `
+                        <div class="field-block rec-block">
+                          <div class="field-label">Remediation</div>
+                          <div class="field-content">${escapeHtml(f.suggestion)}</div>
+                        </div>
+                      ` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      const drift = dbData.drift || [];
+      let driftHtml = '';
+      if (drift.length === 0) {
+        driftHtml = `
+          <div class="category-block" style="margin-bottom: 1.25rem;">
+            <div class="category-header">
+              <div class="category-title-wrap">
+                <span class="category-num">●</span>
+                <h3>Schema Drift</h3>
+              </div>
+              <span class="cat-badge zero-findings">0 Drift Items</span>
+            </div>
+            <div class="category-content">
+              <p class="empty-category-notice">${isConnected ? 'No schema drift detected between code definitions and live catalog.' : 'No schema drift detected between code definitions and live catalog (live connection inactive).'}</p>
+            </div>
+          </div>
+        `;
+      } else {
+        driftHtml = `
+          <div class="category-block" style="margin-bottom: 1.25rem;">
+            <div class="category-header">
+              <div class="category-title-wrap">
+                <span class="category-num">●</span>
+                <h3>Schema Drift</h3>
+              </div>
+              <span class="cat-badge has-findings">${drift.length} Drift ${drift.length === 1 ? 'Item' : 'Items'}</span>
+            </div>
+            <div class="category-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 25%;">Object</th>
+                    <th style="width: 25%;">Declared in Code</th>
+                    <th style="width: 25%;">Observed Live</th>
+                    <th>Discrepancy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${drift.map(d => `
+                    <tr>
+                      <td><code>${escapeHtml(d.object || '')}</code></td>
+                      <td>${escapeHtml(d.declared || d.declared_in_code || '-')}</td>
+                      <td>${escapeHtml(d.observed || d.observed_live || '-')}</td>
+                      <td>${escapeHtml(d.description || d.message || '')}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      const notInspected = dbData.not_inspected || [];
+      let notInspectedHtml = '';
+      if (notInspected.length === 0) {
+        notInspectedHtml = `
+          <div class="category-block">
+            <div class="category-header">
+              <div class="category-title-wrap">
+                <span class="category-num">●</span>
+                <h3>Not Inspected</h3>
+              </div>
+              <span class="cat-badge zero-findings">0 Items</span>
+            </div>
+            <div class="category-content">
+              <p class="empty-category-notice">All relevant database objects and checks were inspected.</p>
+            </div>
+          </div>
+        `;
+      } else {
+        notInspectedHtml = `
+          <div class="category-block">
+            <div class="category-header">
+              <div class="category-title-wrap">
+                <span class="category-num">●</span>
+                <h3>Not Inspected</h3>
+              </div>
+              <span class="cat-badge zero-findings">${notInspected.length} ${notInspected.length === 1 ? 'Item' : 'Items'}</span>
+            </div>
+            <div class="category-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 30%;">Object / Check ID</th>
+                    <th>Reason</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${notInspected.map(ni => `
+                    <tr>
+                      <td><code>${escapeHtml(ni.object || ni.check_id || 'Object')}</code></td>
+                      <td>${escapeHtml(ni.reason || 'Not assessed')}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = connHtml + overviewHtml + findingsHtml + driftHtml + notInspectedHtml;
+    }
+
+    (function() {
+      try {
+        if (window.__REPORT__ && window.__REPORT__.database) {
+          renderDatabaseSection(window.__REPORT__);
         }
       } catch(e) {}
     })();

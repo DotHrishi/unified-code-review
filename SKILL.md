@@ -19,10 +19,11 @@ The goal is to produce a technically accurate review that combines:
 1. File-level implementation analysis
 2. Frontend analysis
 3. Backend/API analysis
-4. Accessibility analysis
-5. Security analysis
-6. Architecture analysis
-7. Cross-file consistency analysis
+4. Database analysis
+5. Accessibility analysis
+6. Security analysis
+7. Architecture analysis
+8. Cross-file consistency analysis
 8. Testing/lint/build evidence
 9. Systemic root-cause analysis
 10. Deduplicated, audited reporting
@@ -40,6 +41,7 @@ Use the following reference files as binding review guidance:
 - `references/review-principles.md`
 - `references/frontend.md`
 - `references/backend.md`
+- `references/database.md`
 - `references/security.md`
 - `references/architecture.md`
 - `references/testing.md`
@@ -147,9 +149,10 @@ Phase 1  → Setup
 Phase 2  → Scope Discovery
 Phase 3  → Complete File Review
 Phase 4  → Testing / Lint / Build
-Phase 5  → Systemic Architecture Review
-Phase 6  → Systemic Security Review
-Phase 7  → Synthesis + Root-Cause Deduplication
-Phase 8  → Consistency Audit
-Phase 9  → Report Generation Using Canonical Template
-Phase 10 → Final Validation
+Phase 5  → Database & Schema Review
+Phase 6  → Systemic Architecture Review
+Phase 7  → Systemic Security Review
+Phase 8  → Synthesis + Root-Cause Deduplication
+Phase 9  → Consistency Audit
+Phase 10 → Report Generation Using Canonical Template
+Phase 11 → Final Validation

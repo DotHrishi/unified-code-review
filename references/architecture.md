@@ -79,3 +79,32 @@ Registration
 → token storage
 → middleware verification
 → protected endpoint
+```
+
+---
+
+# 3. Blast Radius & Downstream Caller Analysis
+
+Whenever a public function, method, endpoint, type, database model, or utility is added, edited, renamed, or removed:
+
+1. **Identify the Symbol**: Determine the exact symbol name, signature, and export scope.
+2. **1-Hop Caller Analysis**: Search for all direct call sites and importers across the codebase:
+   - Are callers passing the updated parameters?
+   - Do callers handle newly introduced error conditions or return types?
+   - If an optional parameter became required, are all existing callers updated?
+3. **2-Hop Caller Analysis (Propagation)**: Trace where the return value of that caller flows:
+   - Does a change in a repository or service method propagate into a controller and alter the API response shape?
+   - Does a state change in a frontend hook alter downstream rendering in parent components?
+4. **Blast Radius Metric**:
+   - Assess blast radius risk: `Low` (isolated to file/private), `Medium` (affects 1-5 direct callers), or `High` (affects shared utility/framework primitive across many files).
+   - If a breaking change is detected and downstream callers are not migrated within the change, report a **Major** architectural defect.
+
+---
+
+# 4. Return Shape Contract Breaks
+
+Pay specific attention to functions, RPCs, or API endpoints returning structured JSON or database query results:
+
+- **Key Deletions / Renames**: Removing or renaming a key/column from a return payload (`json_build_object`, object literal, `res.json()`, `NextResponse.json()`) breaks consumers silently.
+- **Contract Verification**: Verify that every reader or client component consuming the old key was updated in coordination. If the consumer was not updated, report an architectural contract-break finding.
+- Check against pattern [`return-shape-contract-break`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/return-shape-contract-break.md).

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "unified-code-review",
+          "version": "1.0.0",
+          "informationUri": "https://github.com/DotHrishi/unified-code-review",
+          "rules": [
+            {
+              "id": "RULE-EXAMPLE",
+              "name": "RuleExample",
+              "shortDescription": {
+                "text": "Rule short description"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "RULE-EXAMPLE",
+          "level": "error",
+          "message": {
+            "text": "Finding title: Detailed explanation of the verified defect."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "path/to/affected/file.ts"
+                },
+                "region": {
+                  "startLine": 1,
+                  "endLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "security",
+            "severity": "critical",
+            "confidence": 0.95,
+            "pattern_id": "SYS-AUTH-001",
+            "suggested_change": "Remediation code snippet or guidance"
+          }
+        }
+      ],
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ]
+    }
+  ]
+}

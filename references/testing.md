@@ -79,6 +79,25 @@ Look for concrete gaps involving:
 
 Do not report "more tests are needed" without identifying a meaningful untested behavior.
 
+## Missing Tests Heuristic
+
+When reviewing changes or modified components:
+
+- If a changed or newly introduced function exhibits behavioral changes (e.g., a new conditional branch, modified default values, an altered return shape, or a new error handling path) and **no test files** were added or updated:
+  - Check whether any existing unit or integration tests exercise that new behavior.
+  - If no existing test exercises the modified path, raise one finding (**Category**: `Testing`, **Severity**: `Minor` or `Info`).
+  - Pure refactors, renames, file moves, and whitespace/formatting changes do **not** trigger this finding.
+
+## Static Scanner Pre-Scan (Optional SAST Pass)
+
+If external static analysis tools (e.g. `gitleaks`, `semgrep`, `oxlint`, `trivy`, `hadolint`, `shellcheck`, `sqlfluff`, `bandit`) are installed or configured in the environment:
+
+1. Execute the relevant scanner against the target files.
+2. Treat scanner output as **candidates**, not verified facts.
+3. Verify each candidate against the actual code on disk:
+   - If verified as a genuine defect, raise it as a finding with the tool cited (e.g., `source: semgrep:rule-name` or `gitleaks:secret`).
+   - If determined to be a false positive, intentional idiom, or test fixture, explicitly drop it with a verified reason in the audit log.
+
 ## Test/Lint Manifest
 
 The review pipeline should produce:

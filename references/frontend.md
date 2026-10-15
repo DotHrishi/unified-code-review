@@ -53,6 +53,8 @@ Check for:
 - Incorrect component composition
 - Duplicate data fetching
 - Unnecessary rendering or expensive calculations
+- Outdated Next.js or React versions (e.g., Next.js 12/13 vs modern 14/15, React 16/17 vs 18/19); see `references/dependencies.md`
+- Deprecated framework APIs caused by legacy versions (e.g., `next/legacy/image`, legacy `pages/` routing patterns, deprecated font loaders)
 
 Only report these when they create a concrete correctness, performance, maintainability, or architectural problem.
 

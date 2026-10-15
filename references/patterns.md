@@ -1,6 +1,6 @@
 # Bug Patterns Catalog (Lenses)
 
-This catalog contains 48 battle-tested, high-impact bug patterns adapted from OpenQodex. Each pattern is backed by a dedicated definition file in `references/patterns/` specifying concrete code triggers, detection criteria, positive examples, suppression conditions, and calibrated severity.
+This catalog contains 52 battle-tested, high-impact bug patterns adapted from OpenQodex. Each pattern is backed by a dedicated definition file in `references/patterns/` specifying concrete code triggers, detection criteria, positive examples, suppression conditions, and calibrated severity.
 
 During file review (Phase 3), database review (Phase 5), architecture review (Phase 6), and security review (Phase 7), check relevant files against these patterns. When a pattern matches and is verified against actual code, cite it in the finding (e.g., `pattern: async-click-double-fire-race`).
 
@@ -93,3 +93,15 @@ During file review (Phase 3), database review (Phase 5), architecture review (Ph
 | `supabase-function-default-public-execute` | [`references/patterns/supabase-function-default-public-execute.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/supabase-function-default-public-execute.md) | Major | Postgres function created without revoking default public execution permissions (`REVOKE EXECUTE ON FUNCTION ... FROM PUBLIC`). |
 | `supabase-comment-on-function-unqualified` | [`references/patterns/supabase-comment-on-function-unqualified.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/supabase-comment-on-function-unqualified.md) | Minor | Function comment missing schema qualification causing ambiguous metadata binding. |
 | `supabase-single-500-on-no-match` | [`references/patterns/supabase-single-500-on-no-match.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/supabase-single-500-on-no-match.md) | Minor | Using `.single()` in Supabase queries when 0 rows can be returned, throwing unhandled 500 errors instead of graceful 404s (use `.maybeSingle()`). |
+
+---
+
+## 7. Dependencies, Frameworks & Version Management
+
+| Pattern Name | Reference File | Severity | Description |
+| :--- | :--- | :--- | :--- |
+| `outdated-major-framework-version` | [`references/patterns/outdated-major-framework-version.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/outdated-major-framework-version.md) | Major / Minor | Core framework (e.g. Next.js, React, Vue, Express) is pinned to an outdated major version, missing security fixes, performance optimizations, or modern architectural features. |
+| `deprecated-or-eol-dependency` | [`references/patterns/deprecated-or-eol-dependency.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/deprecated-or-eol-dependency.md) | Major / Minor | Dependency, library, or runtime target has reached End-of-Life (EOL) or has been officially deprecated by upstream maintainers (e.g., Node 14/16/18, `request`, `moment`). |
+| `known-vulnerable-dependency` | [`references/patterns/known-vulnerable-dependency.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/known-vulnerable-dependency.md) | Critical / Major | Dependency version matches an active, publicly disclosed CVE or package security advisory. |
+| `unpinned-dependency-version` | [`references/patterns/unpinned-dependency-version.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/unpinned-dependency-version.md) | Minor / Nitpick | Dependency declared with wildcard (`*`), `latest`, or unbounded constraint, leading to non-deterministic production builds. |
+

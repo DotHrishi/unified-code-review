@@ -7,6 +7,7 @@ These rules are binding for the entire code review.
 - Never state a line number, code quote, or file-specific claim unless the exact file was opened and the claim was verified against its current on-disk content.
 - Code snippets in findings must be copied from the reviewed file and must match the current content exactly.
 - Never report a test, lint, build, or command result unless the command was actually executed and its real output was inspected.
+- Dependency and library versions must be verified directly against repository package manifests (`package.json`, lockfiles, `requirements.txt`, etc.). Never guess versions or assume framework versions without checking files on disk.
 - Missing scripts must be reported as "not configured". Never infer that a missing script is clean or passing.
 - Uncertainty must either be omitted or explicitly marked as unverified.
 - Do not manufacture findings merely to increase issue count.
@@ -78,6 +79,7 @@ Never invent a new category.
 If an issue does not fit perfectly into a category, use the closest applicable category already defined by the review system.
 
 Accessibility findings must use the `Accessibility` category rather than `Correctness`, `Frontend`, or `Best Practices`.
+Dependency, framework version, and library vulnerability findings must use the `Dependencies` category.
 
 ## Severity
 

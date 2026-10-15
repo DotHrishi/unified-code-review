@@ -98,6 +98,16 @@ If external static analysis tools (e.g. `gitleaks`, `semgrep`, `oxlint`, `trivy`
    - If verified as a genuine defect, raise it as a finding with the tool cited (e.g., `source: semgrep:rule-name` or `gitleaks:secret`).
    - If determined to be a false positive, intentional idiom, or test fixture, explicitly drop it with a verified reason in the audit log.
 
+## Dependency & Version Audit (Package Audit Pass)
+
+During package inspection:
+
+1. Open `package.json`, lockfiles, and environment files (`.nvmrc`, Dockerfiles).
+2. Compare declared major framework versions (e.g. Next.js, React, Express) against current stable and LTS releases per `references/dependencies.md`.
+3. If `npm audit` or equivalent security audit command is available, execute it and record verified high/critical advisories.
+4. Flag any outdated major framework versions, EOL runtimes, or deprecated packages under the `Dependencies` category.
+
+
 ## Test/Lint Manifest
 
 The review pipeline should produce:

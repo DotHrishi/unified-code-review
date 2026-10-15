@@ -31,6 +31,12 @@
 
 ---
 
+## Dependency & Version Audit
+
+{{dependency_audit}}
+
+---
+
 ## Findings
 
 {{findings}}

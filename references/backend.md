@@ -137,3 +137,12 @@ Where relevant, inspect:
 - Timeout handling
 
 Only report a reliability problem when the implementation provides concrete evidence.
+
+## Runtime and Dependency Versions
+
+Where applicable, inspect:
+
+- Outdated backend framework versions (e.g., Express 3/4 legacy, Fastify, NestJS, Django)
+- End-of-Life (EOL) runtime targets (e.g., Node.js 14, 16, 18 in `.nvmrc`, Dockerfiles, or `engines`)
+- Deprecated network/utility packages (e.g., `request`, `node-fetch` in modern Node, `moment`, `querystring`)
+- See `references/dependencies.md` for full dependency auditing rules.

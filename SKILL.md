@@ -3,10 +3,10 @@ name: code-review
 description: >
   Perform a comprehensive, evidence-driven code review of a repository or git change.
   Supports full repository audits and incremental diff/pre-push reviews. Reviews every
-  in-scope source file against 48 specialized bug patterns, performs dedicated frontend,
-  backend, accessibility, security, blast radius, testing, and systemic root-cause analysis,
-  deduplicates findings, audits all evidence, exports self-contained HTML, Markdown, and
-  SARIF reports, and provides an interactive remediation loop.
+  in-scope source file against 52 specialized bug patterns, performs dedicated frontend,
+  backend, accessibility, security, dependency & version, blast radius, testing, and systemic
+  root-cause analysis, deduplicates findings, audits all evidence, exports self-contained HTML,
+  Markdown, and SARIF reports, and provides an interactive remediation loop.
 ---
 
 # Code Review Skill
@@ -25,9 +25,10 @@ The goal is to produce a technically accurate review that combines:
 6. Architecture & downstream blast radius (1-hop / 2-hop caller analysis)
 7. Cross-file consistency & trust boundaries
 8. Testing/lint/build verification & missing test detection
-9. Systemic root-cause analysis & pattern deduplication
-10. Audited, multi-format reporting (HTML, Markdown, SARIF 2.1.0)
-11. Interactive remediation loop for instant fixing
+9. Dependency, framework & library version analysis (outdated Next.js/React, EOL runtimes, CVEs)
+10. Systemic root-cause analysis & pattern deduplication
+11. Audited, multi-format reporting (HTML, Markdown, SARIF 2.1.0)
+12. Interactive remediation loop for instant fixing
 
 The repository itself is the source of truth.
 
@@ -40,7 +41,8 @@ Do not invent evidence, commands, findings, files, line numbers, test results, o
 Use the following reference files as binding review guidance:
 
 - `references/review-principles.md` (Core principles, untrusted code guard, deleted lines, confidence bar)
-- `references/patterns.md` (Catalog of 48 curated bug patterns / lenses)
+- `references/patterns.md` (Catalog of 52 curated bug patterns / lenses)
+- `references/dependencies.md` (Dependency, framework & version review, outdated Next.js/React, EOL runtimes)
 - `references/frontend.md`
 - `references/backend.md`
 - `references/database.md`
@@ -109,6 +111,9 @@ When a defect is caused by deleted code (e.g. removed auth check, deleted valida
 ## 4. Blast Radius
 When public functions, types, endpoints, or DB models are modified, perform 1-hop and 2-hop caller analysis to identify breaking changes and assess blast radius.
 
+## 5. Dependency & Framework Version Auditing
+Inspect package manifests (`package.json`, lockfiles, `requirements.txt`, etc.). Flag outdated major framework versions (e.g. older Next.js, React, Express), End-of-Life (EOL) runtimes (Node 14/16/18), deprecated packages, and known vulnerable or unpinned dependencies per `references/dependencies.md`.
+
 ---
 
 # REVIEW PIPELINE
@@ -119,7 +124,7 @@ The review MUST follow this order:
 Phase 1  → Setup & Policy Configuration (.codereview.yaml / custom instructions)
 Phase 2  → Scope Discovery (Full Audit vs. Incremental Diff / Pre-Push)
 Phase 3  → Complete File Review & Pattern Matching (references/patterns.md)
-Phase 4  → Testing / Lint / Build & Static Scanner Pass
+Phase 4  → Testing / Lint / Build, Dependency & Version Audit & Static Scanner Pass
 Phase 5  → Database & Schema Review
 Phase 6  → Systemic Architecture & Blast Radius Review
 Phase 7  → Systemic Security Review
@@ -145,8 +150,9 @@ After generating the reports, print a concise **Review Receipt** directly in the
 ══════════════════════════════════════════════════════════════════
  1. [Major] [Security] app/api/auth.ts:45 — Missing rate limit on auth route
  2. [Major] [Architecture] db/queries.ts:112 — Return shape contract break (dropped key 'org_id')
- 3. [Minor] [Frontend] components/Button.tsx:28 — Async double-click race condition
- 4. [Minor] [Testing] services/user.ts:60 — Missing covering test for new error branch
+ 3. [Major] [Dependencies] package.json:16 — Outdated Next.js version (12.3.4 vs 15.x); missing modern App Router & security patches
+ 4. [Minor] [Frontend] components/Button.tsx:28 — Async double-click race condition
+ 5. [Minor] [Testing] services/user.ts:60 — Missing covering test for new error branch
 ──────────────────────────────────────────────────────────────────
  Reports:
   • HTML:     reviews/report.html

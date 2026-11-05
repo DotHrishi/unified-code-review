@@ -2,7 +2,9 @@
 name: code-review
 description: >
   Perform a comprehensive, evidence-driven code review of a repository or git change.
-  Supports full repository audits and incremental diff/pre-push reviews. Reviews every
+  Supports full repository audits, incremental diff/pre-push reviews, and an optional
+  Architecture Discovery mode that reverse-engineers the full architecture, design patterns,
+  and code conventions of a SaaS codebase into a structured knowledge base. Reviews every
   in-scope source file against 52 specialized bug patterns, performs dedicated frontend,
   backend, accessibility, security, dependency & version, blast radius, testing, and systemic
   root-cause analysis, deduplicates findings, audits all evidence, exports self-contained HTML,
@@ -50,6 +52,9 @@ Use the following reference files as binding review guidance:
 - `references/architecture.md` (Includes blast radius & return shape contract analysis)
 - `references/testing.md` (Includes missing tests heuristic & static scanner pass)
 - `references/synthesis.md`
+- `references/architecture-discovery.md` (Phase 13: Architecture Discovery — project inventory, architectural patterns, design patterns, code patterns, diagrams, developer reference guide)
+- `references/design-patterns.md` (Catalog of software design patterns to detect: Creational, Structural, Behavioural, Architectural)
+- `references/code-patterns.md` (Recurring code pattern areas: frontend, backend, database, integration, security conventions)
 
 Read the relevant reference files before performing their corresponding review phases.
 
@@ -122,7 +127,7 @@ The review MUST follow this order:
 
 ```text
 Phase 1  → Setup & Policy Configuration (.codereview.yaml / custom instructions)
-Phase 2  → Scope Discovery (Full Audit vs. Incremental Diff / Pre-Push)
+Phase 2  → Scope Discovery (Full Audit vs. Incremental Diff / Pre-Push vs. Architecture Discovery)
 Phase 3  → Complete File Review & Pattern Matching (references/patterns.md)
 Phase 4  → Testing / Lint / Build, Dependency & Version Audit & Static Scanner Pass
 Phase 5  → Database & Schema Review
@@ -133,6 +138,7 @@ Phase 9  → Consistency Audit
 Phase 10 → Multi-Format Report Generation (HTML, Markdown, SARIF)
 Phase 11 → Final Validation
 Phase 12 → Review Receipt & Interactive Remediation Loop
+Phase 13 → Architecture Discovery (optional — activated on explicit user request)
 ```
 
 ---
@@ -163,3 +169,79 @@ Fix all, or tell me which finding numbers to fix (e.g., "fix 1, 3")?
 ```
 
 If the user responds with instructions to fix all or specific findings, immediately enter the remediation loop and implement the fixes in the workspace using file editing tools.
+
+---
+
+# Phase 13: Architecture Discovery (Optional)
+
+Phase 13 is activated when the user explicitly requests architecture analysis, pattern extraction, or engineering knowledge documentation. It runs after Phase 12 and does not replace or shorten any earlier phase.
+
+Read `references/architecture-discovery.md` before executing this phase.
+
+## Activation Triggers
+
+Phase 13 activates on requests such as:
+
+- `"Perform architecture discovery on <folder>"`
+- `"Analyse architecture and extract patterns"`
+- `"Reverse-engineer the codebase"`
+- `"Create architecture documentation"`
+- `"Extract engineering knowledge from this codebase"`
+- `"Review and also extract the architecture"`
+
+## Output
+
+Phase 13 produces the following files inside `architecture-documentation/` at the repository root:
+
+| File | Contents |
+| :--- | :--- |
+| `01-project-overview.md` | Languages, frameworks, entry points, module inventory |
+| `02-system-architecture.md` | High-level system architecture |
+| `03-architectural-patterns.md` | Layered, MVC, repository, service, multi-tenancy, etc. |
+| `04-software-design-patterns.md` | GoF and architectural patterns (uses `references/design-patterns.md`) |
+| `05-code-patterns-and-conventions.md` | Recurring code patterns (uses `references/code-patterns.md`) |
+| `06-database-architecture.md` | Schema, keys, indexes, soft deletion, migrations, ORM conventions |
+| `07-api-and-integration-patterns.md` | REST/GraphQL/tRPC, webhooks, third-party integrations, payments |
+| `08-security-architecture.md` | Auth/authz model, session lifecycle, validation boundaries, RBAC |
+| `09-reusable-components-and-modules.md` | Inventory of genuinely reusable building blocks |
+| `10-business-workflow-patterns.md` | CRUD, approval flows, status machines, notifications, pagination |
+| `11-architecture-diagrams.md` | Mermaid diagrams: system, components, DB ERD, auth flow, integrations |
+| `12-technical-debt-and-improvements.md` | Gaps classified Critical / High / Medium / Low |
+| `13-developer-reference-guide.md` | Module template, naming conventions, pre-release checklist |
+| `INDEX.md` | Navigation index for all documents |
+
+## Core Rules for Phase 13
+
+- Analyse actual source code, not README files alone.
+- Do not expose secrets, tokens, passwords, or sensitive configuration values in any output.
+- Do not modify any existing application source code.
+- Only create or update files inside `architecture-documentation/`.
+- Explicitly distinguish: **what the application currently does** vs **what it should ideally do**. Never document an inconsistent implementation as an established best practice.
+- Explicitly label: **Confirmed** patterns (consistent evidence across multiple files) vs **Candidate** patterns (single or partial occurrence) vs **Absent**.
+- Label all **Assumptions** and **Recommendations** clearly and separately from observed facts.
+
+## Phase 13 Conversation Receipt
+
+After completing Architecture Discovery, print a summary in the conversation:
+
+```text
+══════════════════════════════════════════════════════════════════
+ ARCHITECTURE DISCOVERY COMPLETE
+ Repository: [name / path]
+ Languages & Frameworks: [list]
+ Architectural Patterns: [count confirmed] confirmed, [count candidate] candidate
+ Design Patterns: [count confirmed] confirmed, [count candidate] candidate
+ Code Pattern Areas: [count consistent] consistent, [count fragmented] fragmented
+ Reusable Modules Identified: [count]
+ Technical Debt Items: [count] ([Critical] Critical, [High] High, [Medium] Medium, [Low] Low)
+══════════════════════════════════════════════════════════════════
+ Top Architectural Strengths:
+  1. [strength]
+  2. [strength]
+ Top Risks / Debt:
+  1. [risk]
+  2. [risk]
+──────────────────────────────────────────────────────────────────
+ Documentation: architecture-documentation/INDEX.md
+──────────────────────────────────────────────────────────────────
+```

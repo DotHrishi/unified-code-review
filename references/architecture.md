@@ -25,6 +25,10 @@ Architecture review must therefore answer:
 
 Architecture review supplements file-level findings. It does not replace them.
 
+> **Scope distinction**: This file governs the **mandatory architecture review** that runs as Phase 6 of every code review — blast radius, contract stability, trust boundaries, and system-level correctness.
+>
+> For the optional **Architecture Discovery** mode (Phase 13) — which reverse-engineers architectural patterns, design patterns, and code conventions to produce a reusable engineering knowledge base — see [`references/architecture-discovery.md`](references/architecture-discovery.md).
+
 ---
 
 # 1. Mandatory Architecture Pass

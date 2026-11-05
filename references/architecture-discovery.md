@@ -54,6 +54,22 @@ These rules are binding throughout Architecture Discovery.
 
 ## Phase 13: Architecture Discovery
 
+### Output Directory
+
+All generated files must be placed in:
+
+```
+architecture-documentation/
+```
+
+Create this directory at the target repository root if it does not exist. Do not create any files outside this directory. Do not modify any existing application source code.
+
+### File Writing Mandate
+
+Every `Output:` instruction in the steps below is a **hard requirement to write a file to disk** using file-writing tools. Do not describe or summarise document content in the conversation as a substitute for writing the file. Write each file immediately after its step completes — do not batch all writes to the end of the analysis.
+
+---
+
 ### Step 1 — Project Inventory
 
 Examine the complete project directory recursively.
@@ -356,21 +372,6 @@ Also provide an executive summary in the conversation containing:
 7. Major technical debt and risks.
 8. Recommendations for standardising development practices.
 9. Suggested architecture and coding standards for future modules.
-
----
-
-## Output Directory
-
-All generated files must be placed in:
-
-```
-architecture-documentation/
-```
-
-Create this directory at the repository root if it does not exist.
-
-Do not create any files outside this directory.
-Do not modify any existing application source code.
 
 ---
 

@@ -90,6 +90,17 @@ Generate `reviews/report.sarif` conforming to the OASIS SARIF 2.1.0 specificatio
 - Uses physical locations (`artifactLocation.uri`, `region.startLine`, `region.endLine`).
 - Allows seamless upload to GitHub Code Scanning via `github/codeql-action/upload-sarif`.
 
+## File Creation Requirement
+
+The report generator MUST physically write all three report files to disk using file-writing tools:
+
+- Create `reviews/` directory at the target repository root if it does not already exist.
+- Write `reviews/report.html` — populated from `templates/report.html`.
+- Write `reviews/report.md` — populated from `templates/report.md`.
+- Write `reviews/report.sarif` — conforming to OASIS SARIF 2.1.0.
+
+Do not describe report content in the conversation without also writing the files. The files must exist on disk before Phase 11 (Final Validation) begins.
+
 ---
 
 # Core Rules
@@ -191,7 +202,9 @@ Phase 13 activates on requests such as:
 
 ## Output
 
-Phase 13 produces the following files inside `architecture-documentation/` at the repository root:
+Phase 13 produces the following files inside `architecture-documentation/` at the repository root.
+
+**Every file listed below MUST be physically written to disk** using file-writing tools as each step completes. Do not summarise content in the conversation as a substitute for creating the actual files. Create the `architecture-documentation/` directory at the target repository root if it does not exist.
 
 | File | Contents |
 | :--- | :--- |
@@ -209,6 +222,8 @@ Phase 13 produces the following files inside `architecture-documentation/` at th
 | `12-technical-debt-and-improvements.md` | Gaps classified Critical / High / Medium / Low |
 | `13-developer-reference-guide.md` | Module template, naming conventions, pre-release checklist |
 | `INDEX.md` | Navigation index for all documents |
+
+Write each file immediately after its corresponding step completes. Do not batch all writes to the end.
 
 ## Core Rules for Phase 13
 

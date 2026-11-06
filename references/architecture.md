@@ -112,3 +112,61 @@ Pay specific attention to functions, RPCs, or API endpoints returning structured
 - **Key Deletions / Renames**: Removing or renaming a key/column from a return payload (`json_build_object`, object literal, `res.json()`, `NextResponse.json()`) breaks consumers silently.
 - **Contract Verification**: Verify that every reader or client component consuming the old key was updated in coordination. If the consumer was not updated, report an architectural contract-break finding.
 - Check against pattern [`return-shape-contract-break`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/patterns/return-shape-contract-break.md).
+
+---
+
+# 5. Architectural Pattern Extraction & Evaluation
+
+During Phase 6, evaluate the high-level architectural patterns governing the system. These findings must be documented in the HTML report under `#section-architectural-patterns`:
+
+1. **Layered / N-Tier Architecture**:
+   - Inspect boundary enforcement between controllers, services, and repositories/database entities.
+   - Detect layer violations (e.g. controllers executing raw SQL strings, services directly parsing Express request parameters).
+2. **Multi-Tenancy Isolation Model**:
+   - Trace how tenant identity (e.g. `school_id`, `org_id`, `tenant_id`) is extracted from session tokens and propagated to queries.
+   - Flag any query lacking tenant predicates as an architectural data leakage risk.
+3. **Data Access & Persistence Architecture**:
+   - Identify whether data access uses an ORM, query builder, or raw SQL.
+   - Flag divergences between ORM entity definitions and raw SQL table/column names.
+4. **Data Processing & Export Pipelines**:
+   - Verify whether bulk export or batch operations use streaming cursors or asynchronous background queues versus synchronous memory-heavy queries.
+
+Classify each architectural pattern as:
+- **Confirmed**: Consistently applied with structural guarantees across the system.
+- **Candidate**: Implemented in isolated modules but not universally enforced.
+- **Anti-Pattern**: Architectural flaw that creates maintainability, security, or data integrity risks.
+- **Absent**: Pattern is missing where architectural necessity dictates it should exist.
+
+---
+
+# 6. Software Design Pattern Extraction
+
+Apply [`references/design-patterns.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/design-patterns.md) to detect established design patterns across the codebase for `#section-design-patterns`:
+
+- **Creational**: Factory Method / Transformers, Singleton connection pools, Builders.
+- **Structural**: Adapters, Facades, Decorators, Repositories / DAOs.
+- **Behavioral**: Strategy patterns, Observers / Event listeners, Middleware Chains of Responsibility.
+
+For each pattern:
+- Identify the problem it solves.
+- Record exact implementation files and symbols.
+- Extract a concise code snippet as structural evidence.
+- Assess design quality, testability, and potential decoupling improvements.
+
+---
+
+# 7. Coding Patterns & Conventions Analysis
+
+Apply [`references/code-patterns.md`](file:///c:/Users/Hrishikesh%20Kali/Code%20Review%20Skill/references/code-patterns.md) to evaluate recurring idioms and implementation habits for `#section-coding-patterns`:
+
+- **Backend & Controller Conventions**: Standardized API response envelopes, error throwing habits, parameter extraction.
+- **Concurrency & Async Patterns**: Handling loop iterations (serial `await` vs. batched `INSERT` vs. `Promise.all`), lock acquisition, race condition guards.
+- **Database Conventions**: Soft-deletion strategies (`trashed = 0`), naming conventions, audit columns (`created_at`, `updated_at`).
+- **Security & Validation Conventions**: Input validation libraries (Joi, Zod), sanitization, origin control.
+
+Classify consistency:
+- **Consistent (≥70%)**: Well-established habit followed by most modules.
+- **Fragmented (2-3 styles)**: Multiple competing conventions co-existing without clear boundaries.
+- **Anti-Pattern / Smell**: A recurring convention that violates correctness or performance standards.
+
+Provide concrete code comparison examples: established best practice vs anti-pattern violation.

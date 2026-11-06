@@ -25,7 +25,11 @@ npx skills add DotHrishi/unified-code-review
 - **Untrusted Code Guard**: Built-in defense against prompt injections inside reviewed code and comments.
 - **Blast Radius Analysis**: 1-hop and 2-hop downstream caller analysis to catch breaking API changes and return shape mutations.
 - **Missing Tests Detection**: Flags behavioral branching changes that lack covering unit/integration tests.
-- **Multi-Format Export**: Generates self-contained interactive `report.html`, human-readable `report.md`, and industry-standard `report.sarif` (ready for GitHub Code Scanning).
+- **Multi-Format Export**: Generates self-contained interactive `report.html`, human-readable `report.md`, and industry-standard `report.sarif` (ready for GitHub Code Scanning). Includes dedicated, interactive sections for:
+  - **Architectural Patterns**: Layered/N-Tier, Multi-Tenancy isolation, API boundaries, and processing pipelines evaluated with Confirmed/Candidate/Anti-Pattern status.
+  - **Software Design Patterns**: Creational, Structural, and Behavioral patterns identified with concrete code evidence and decoupling guidance.
+  - **Coding Patterns & Conventions**: Recurring application idioms, consistency grading (Consistent, Fragmented, Anti-Pattern), and best-practice vs violation code comparison grids.
+  - **Deeply Descriptive Systemic Patterns**: Cross-cutting root cause analysis featuring an enriched overview table and detailed deep-dive cards with technical mechanisms, systemic blast radius, and strategic architectural remediations.
 - **Interactive Remediation Loop**: Summarizes findings in a compact Review Receipt and immediately patches code on demand (*"Fix all or tell me which?"*).
 - **Architecture Discovery**: Extracts and documents architectural patterns, GoF/architectural design patterns, recurring code conventions, reusable module inventory, Mermaid diagrams, technical debt catalogue, and a developer reference guide — producing a complete `architecture-documentation/` knowledge base.
 

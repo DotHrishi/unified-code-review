@@ -83,6 +83,57 @@ The report generator MUST:
 9. Never create a new HTML layout when `templates/report.html` exists.
 10. Save the final report to `reviews/report.html`.
 
+## Mandatory Report Sections & Pattern Requirements
+
+Every generated HTML and Markdown report MUST include the following core sections:
+
+1. **Executive Summary** (`#section-executive-summary`):
+   - Overall score / 100, accessibility score (or N/A for backend-only), and test coverage metrics.
+   - Severity breakdown grid (Critical, Major/High, Minor/Medium, Low).
+   - Findings by category / layer table.
+   - High-level observations and executive takeaways.
+
+2. **Granular Findings** (`#section-critical`, `#section-major`, `#section-minor` or layer sections `#section-frontend`, `#section-backend`, `#section-api`):
+   - Finding cards with ID, severity badge, category, confidence score.
+   - Location bar with exact file path and line numbers.
+   - Verified description, concrete code evidence snippet, and actionable remediation.
+
+3. **Architectural Patterns** (`#section-architectural-patterns`):
+   - Analysis of high-level architectural styles: Layered/N-Tier, Controller-Service-Repository separation, Multi-Tenancy isolation models (row-level, schema-per-tenant), API gateway pipelines, and trust boundaries.
+   - Summary table: Pattern Name, Architecture Type, Status (`Confirmed`, `Candidate`, `Anti-Pattern`, `Absent`), Key Locations, and Architectural Assessment & Risks.
+   - Detailed Architectural Pattern Cards: Rationale & implementation approach, architectural strengths, gaps/debt, and strategic recommendations.
+
+4. **Software Design Patterns** (`#section-design-patterns`):
+   - Evaluation of established software design patterns using `references/design-patterns.md` (Creational, Structural, Behavioral, Architectural).
+   - Summary table: Pattern Name, Category, Status, Implementation Files, and Quality Assessment.
+   - Detailed Design Pattern Cards: Problem solved / intent, representative code evidence snippet from actual repository files, and quality/decoupling assessment.
+
+5. **Coding Patterns & Conventions** (`#section-coding-patterns`):
+   - Evaluation of application-specific coding conventions and idioms using `references/code-patterns.md` across Frontend, Backend, Database/ORM, Concurrency/Async, and Security/Validation.
+   - Summary table: Convention Name, Domain Area, Consistency Level (`Consistent [≥70%]`, `Fragmented [2-3 styles]`, `Anti-Pattern / Smell`), Observed Habit/Rule, and Quality Impact.
+   - Detailed Coding Pattern Cards: Convention description, code comparison grid showcasing established best practice vs anti-pattern violation (with file and line references), and developer standard rule.
+
+6. **Descriptive Systemic Patterns & Cross-Cutting Root Causes** (`#section-systemic`):
+   - **MANDATORY**: Systemic patterns MUST be deeply descriptive. **NEVER** output a bare 3-column table with only Pattern ID, Description, and Files Affected.
+   - Every systemic pattern review MUST produce:
+     1. **Enriched Overview Table**: Columns for `Pattern ID`, `Pattern & Category`, `Severity & Conf`, `Root Cause Mechanism` (precise technical explanation), `Systemic Blast Radius & Risk` (consequences of cross-cutting manifestation), and `Strategic Architectural Remediation` (holistic systemic fix).
+     2. **Deep-Dive Systemic Pattern Cards**: A dedicated rich card for every systemic pattern featuring:
+        - Pattern header with ID, title, severity badge, category badge, and confidence score.
+        - Location bar with all affected files and line numbers.
+        - **Root Cause Mechanism**: Detailed explanation of why and how the defect permeates multiple files.
+        - **Systemic Blast Radius & Business Risk**: Why local patches fail, and runtime operational/security risks.
+        - **Concrete Code Evidence**: Syntax-highlighted snippet from repository files showing the flawed pattern.
+        - **Strategic Architectural Remediation**: Concrete systemic fix with code snippet and architectural guardrail.
+
+7. **Database Review** (`#section-database`):
+   - Schema objects inspected, ORM entity mappings, index coverage analysis, migration integrity, and data integrity findings.
+
+8. **Verification Evidence** (`#section-verification-evidence` / `#section-verification`):
+   - Verifiable test, lint, type-check, and build execution commands with actual exit codes and stdout/stderr summaries.
+
+9. **Review Coverage & Scope** (`#section-coverage`):
+   - Full scope accounting: total files in-scope, reviewed count, deferred count, excluded count, and coverage percentage.
+
 ## SARIF 2.1.0 Standard Export
 
 Generate `reviews/report.sarif` conforming to the OASIS SARIF 2.1.0 specification:
@@ -142,15 +193,43 @@ Phase 2  → Scope Discovery (Full Audit vs. Incremental Diff / Pre-Push vs. Arc
 Phase 3  → Complete File Review & Pattern Matching (references/patterns.md)
 Phase 4  → Testing / Lint / Build, Dependency & Version Audit & Static Scanner Pass
 Phase 5  → Database & Schema Review
-Phase 6  → Systemic Architecture & Blast Radius Review
+Phase 6  → Systemic Architecture, Pattern Extraction & Blast Radius Review
+           (Architectural Patterns, Software Design Patterns, Coding Patterns & Conventions)
 Phase 7  → Systemic Security Review
-Phase 8  → Synthesis + Root-Cause Deduplication (Local vs Systemic)
+Phase 8  → Synthesis + Root-Cause Deduplication (Local vs Deeply Descriptive Systemic Patterns)
 Phase 9  → Consistency Audit
-Phase 10 → Multi-Format Report Generation (HTML, Markdown, SARIF)
+Phase 10 → Multi-Format Report Generation (HTML, Markdown, SARIF with all Pattern Sections)
 Phase 11 → Final Validation
 Phase 12 → Review Receipt & Interactive Remediation Loop
 Phase 13 → Architecture Discovery (optional — activated on explicit user request)
 ```
+
+## Phase Highlights for Pattern & Systemic Analysis
+
+### Phase 6: Architecture & Pattern Extraction
+- Read `references/architecture.md`, `references/design-patterns.md`, and `references/code-patterns.md`.
+- **Architectural Patterns**: Identify structural styles (Layered/N-Tier, Controller-Service-Repository, Multi-Tenancy model, Sync/Async processing pipelines). Classify as `Confirmed`, `Candidate`, `Anti-Pattern`, or `Absent`.
+- **Software Design Patterns**: Identify Creational (Factory, Singleton, Builder), Structural (Adapter, Facade, Decorator, Repository), and Behavioral patterns (Strategy, Observer, Middleware Chain). Anchor with actual code evidence snippets.
+- **Coding Patterns & Conventions**: Identify application-specific conventions across Frontend, Backend, Database/ORM, Concurrency, and Validation. Classify consistency as `Consistent (≥70%)`, `Fragmented (2-3 styles)`, or `Anti-Pattern / Smell`. Extract good established snippets vs anti-pattern violation snippets.
+- **Blast Radius**: Perform 1-hop and 2-hop caller analysis on all modified symbols.
+
+### Phase 8: Synthesis & Descriptive Systemic Deduplication
+- Synthesize granular findings into root causes. When multiple files exhibit the same defect pattern, group them under a shared `SYS-*` pattern.
+- Every systemic pattern MUST be documented with complete descriptive depth:
+  - Technical Root Cause Mechanism (why the defect exists across multiple files).
+  - Systemic Blast Radius & Business Risk (consequences of cross-cutting manifestation).
+  - Affected Locations & Call Sites (exact files and line ranges).
+  - Concrete Code Evidence (snippet from repository files demonstrating the anti-pattern).
+  - Strategic Architectural Remediation (global solution with code example and architectural guardrails).
+
+### Phase 10: Multi-Format Report Generation
+- Populate `reviews/report.html` from `templates/report.html` and `reviews/report.md` from `templates/report.md`.
+- Ensure all 4 pattern sections are populated:
+  1. `#section-architectural-patterns`
+  2. `#section-design-patterns`
+  3. `#section-coding-patterns`
+  4. `#section-systemic` (featuring the enriched overview table AND individual deep-dive pattern cards).
+- Never omit pattern sections or collapse systemic patterns into a bare 3-column table.
 
 ---
 

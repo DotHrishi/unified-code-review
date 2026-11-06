@@ -398,6 +398,211 @@
     }
     .cmd-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem; }
     .cmd-code { color: var(--primary); font-family: monospace; font-size: 0.85rem; font-weight: 700; }
+
+    /* Pattern Status Badges */
+    .badge-confirmed { background: #059669; color: #fff; }
+    .badge-candidate { background: #0284c7; color: #fff; }
+    .badge-antipattern { background: #dc2626; color: #fff; }
+    .badge-consistent { background: #059669; color: #fff; }
+    .badge-fragmented { background: #d97706; color: #fff; }
+    .badge-absent { background: #64748b; color: #fff; }
+
+    /* Pattern Cards & Architecture / Design / Coding Pattern Layout */
+    .pattern-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      margin-top: 1rem;
+      padding: 1.15rem;
+      transition: all 0.15s ease;
+    }
+    .pattern-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .pattern-card.confirmed { border-left: 4px solid var(--low); }
+    .pattern-card.candidate { border-left: 4px solid var(--primary); }
+    .pattern-card.antipattern { border-left: 4px solid var(--critical); }
+    .pattern-card.fragmented { border-left: 4px solid var(--medium); }
+
+    .pattern-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .pattern-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .pattern-id {
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+    .pattern-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .pattern-meta {
+      display: flex;
+      gap: 0.85rem;
+      margin-top: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+    .pattern-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+    }
+    .pattern-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    .pattern-subcard {
+      background: var(--bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 0.75rem 0.95rem;
+    }
+    .pattern-subcard h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Descriptive Systemic Patterns Styling */
+    .systemic-summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      margin-bottom: 1.5rem;
+    }
+    .systemic-summary-table th {
+      background: var(--bg);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--card-border);
+      text-align: left;
+    }
+    .systemic-summary-table td {
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--card-border);
+      vertical-align: top;
+      line-height: 1.45;
+    }
+    .systemic-summary-table tr:nth-child(even) {
+      background: var(--table-stripe);
+    }
+    .systemic-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-top: 1.25rem;
+      padding: 1.25rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    .systemic-card.critical { border-left: 5px solid var(--critical); }
+    .systemic-card.high { border-left: 5px solid var(--high); }
+    .systemic-card.medium { border-left: 5px solid var(--medium); }
+    .systemic-card.low { border-left: 5px solid var(--low); }
+    .systemic-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .systemic-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text);
+      width: 100%;
+      margin-top: 0.2rem;
+    }
+    .systemic-meta {
+      display: flex;
+      gap: 0.85rem;
+      margin-top: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+    .systemic-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      font-size: 0.88rem;
+    }
+
+    /* Comparison & Code Blocks */
+    .code-comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.4rem;
+    }
+    @media (max-width: 800px) {
+      .code-comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .code-box-good {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 4px;
+      padding: 0.65rem 0.85rem;
+    }
+    .code-box-bad {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 4px;
+      padding: 0.65rem 0.85rem;
+    }
+    .code-box-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .code-box-good .code-box-title { color: var(--low); }
+    .code-box-bad .code-box-title { color: var(--critical); }
+    .code-snippet {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.82rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      background: transparent;
+      line-height: 1.45;
+    }
+    .code-box-good .code-snippet { color: #065f46; }
+    .code-box-bad .code-snippet { color: #991b1b; }
+    body.light-theme .code-box-good .code-snippet { color: #047857; }
+    body.light-theme .code-box-bad .code-snippet { color: #b91c1c; }
   </style>
 </head>
 <body>
@@ -462,11 +667,32 @@
             <span class="toc-sub">15 Categories • 15 Findings</span>
           </div>
         </a>
-        <a href="#section-cross-cutting" class="toc-card">
-          <span class="toc-num">5</span>
+        <a href="#section-architectural-patterns" class="toc-card">
+          <span class="toc-num" style="background:rgba(56,189,248,0.15);color:var(--primary);border-color:var(--primary);">AP</span>
           <div class="toc-info">
-            <span class="toc-title">Cross-Cutting Findings</span>
-            <span class="toc-sub">Multi-layer Issues</span>
+            <span class="toc-title">Architectural Patterns</span>
+            <span class="toc-sub">System Structure &amp; Boundary Analysis</span>
+          </div>
+        </a>
+        <a href="#section-design-patterns" class="toc-card">
+          <span class="toc-num" style="background:rgba(56,189,248,0.15);color:var(--primary);border-color:var(--primary);">DP</span>
+          <div class="toc-info">
+            <span class="toc-title">Software Design Patterns</span>
+            <span class="toc-sub">GoF &amp; Structural Implementations</span>
+          </div>
+        </a>
+        <a href="#section-coding-patterns" class="toc-card">
+          <span class="toc-num" style="background:rgba(56,189,248,0.15);color:var(--primary);border-color:var(--primary);">CP</span>
+          <div class="toc-info">
+            <span class="toc-title">Coding Patterns &amp; Conventions</span>
+            <span class="toc-sub">Idioms, Consistency &amp; Standards</span>
+          </div>
+        </a>
+        <a href="#section-systemic" class="toc-card">
+          <span class="toc-num" style="background:rgba(239,68,68,0.15);color:var(--critical);border-color:var(--critical);">SYS</span>
+          <div class="toc-info">
+            <span class="toc-title">Systemic Patterns</span>
+            <span class="toc-sub">Descriptive Cross-Cutting Root Causes</span>
           </div>
         </a>
         <a href="#section-findings-summary" class="toc-card">
@@ -3147,12 +3373,702 @@
       </section>
     
 
-    <!-- 5. CROSS-CUTTING FINDINGS -->
-    <section class="report-section" id="section-cross-cutting">
+    <!-- ARCHITECTURAL PATTERNS -->
+    <section class="report-section" id="section-architectural-patterns">
       <div class="section-header">
-        <h2>5. CROSS-CUTTING FINDINGS</h2>
+        <h2>ARCHITECTURAL PATTERNS</h2>
+        <span class="section-count">4 Patterns Evaluated</span>
       </div>
-      <p class="empty-category-notice"><em>No cross-cutting findings identified.</em></p>
+      <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 1.25rem; line-height: 1.5;">
+        Analysis of high-level system organization, boundary enforcement, tenancy models, and data access pipelines governing the application. Evaluates structural separation, trust boundaries, and architectural risks across components.
+      </p>
+
+      <!-- Architectural Patterns Summary Table -->
+      <table class="systemic-summary-table" style="margin-bottom: 1.5rem;">
+        <thead>
+          <tr>
+            <th style="width: 22%;">Pattern Name</th>
+            <th style="width: 14%;">Architecture Type</th>
+            <th style="width: 12%;">Status</th>
+            <th style="width: 22%;">Key Locations</th>
+            <th style="width: 30%;">Architectural Assessment &amp; Risks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Layered N-Tier Architecture</strong></td>
+            <td>Separation of Concerns</td>
+            <td><span class="badge badge-confirmed">CONFIRMED</span></td>
+            <td><code>controllers/</code>, <code>services/</code>, <code>db/entity/</code></td>
+            <td>Controllers delegate HTTP routing to domain services; entity models isolate database schema. Minor boundary leakage where controllers perform direct raw SQL.</td>
+          </tr>
+          <tr>
+            <td><strong>Multi-Tenancy Row-Level Isolation</strong></td>
+            <td>Tenancy &amp; Security</td>
+            <td><span class="badge badge-antipattern">LEAKY / PARTIAL</span></td>
+            <td><code>isAuthenticated.ts</code>, <code>shop.controller.ts</code></td>
+            <td>Tenant context extracted from JWT claims. Leaks observed where global lookups (e.g. financial year) omit the <code>school_id</code> predicate, enabling cross-tenant data leaks.</td>
+          </tr>
+          <tr>
+            <td><strong>API Gateway &amp; Middleware Pipeline</strong></td>
+            <td>Request Pipeline</td>
+            <td><span class="badge badge-fragmented">FRAGMENTED</span></td>
+            <td><code>server/app.ts</code>, <code>middlewares/</code></td>
+            <td>Express middleware chain separates auth and parsing. Broken at app entrypoint where global rate limiting is commented out and CORS origin is wildcarded.</td>
+          </tr>
+          <tr>
+            <td><strong>Synchronous Bulk Export Pipeline</strong></td>
+            <td>Data Processing</td>
+            <td><span class="badge badge-antipattern">ANTI-PATTERN</span></td>
+            <td><code>cash-payments.service.ts</code>, <code>shop-users.service.ts</code></td>
+            <td>Export endpoints pull up to 100,000 rows into memory synchronously on the main event loop instead of streaming via database cursors or queue workers.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Architectural Pattern Detail Cards -->
+      <div class="pattern-card confirmed">
+        <div class="pattern-header">
+          <div class="pattern-title-wrap">
+            <span class="pattern-id">ARCH-01</span>
+            <span class="badge badge-confirmed">Confirmed</span>
+            <span class="badge" style="background: rgba(56,189,248,0.15); color: var(--primary);">Separation of Concerns</span>
+            <span class="pattern-title">Layered N-Tier Architecture (Controller &rarr; Service &rarr; Entity / Database)</span>
+          </div>
+        </div>
+        <div class="pattern-meta">
+          <span><strong>Scope:</strong> Core Backend</span>
+          <span><strong>Coupling:</strong> Loose / Medium</span>
+          <span><strong>Boundary Enforcement:</strong> 85% Conformance</span>
+        </div>
+        <div class="pattern-body">
+          <div class="field-block">
+            <span class="field-label">Architectural Rationale &amp; Implementation</span>
+            <span class="field-content">
+              The application divides responsibilities into distinct tiers: <code>routes/</code> declare HTTP endpoints; <code>controllers/</code> unpack request parameters and format HTTP responses; <code>services/</code> encapsulate domain logic, payment flows, and validations; and <code>db/entity/</code> define persistence schemas. This isolates HTTP framework specifics from core business rules.
+            </span>
+          </div>
+          <div class="pattern-grid">
+            <div class="pattern-subcard">
+              <h4>Architectural Strengths</h4>
+              <ul style="padding-left: 1.1rem; font-size: 0.83rem; color: var(--text);">
+                <li>Decouples Express request/response handling from complex business calculations.</li>
+                <li>Enables unit-testing service logic independently from HTTP mock servers.</li>
+                <li>Centralizes payment validation and discount calculation in reusable service functions.</li>
+              </ul>
+            </div>
+            <div class="pattern-subcard">
+              <h4>Architectural Gaps &amp; Debt</h4>
+              <ul style="padding-left: 1.1rem; font-size: 0.83rem; color: var(--text);">
+                <li>Controllers occasionally bypass the service layer to execute raw SQL directly (e.g. <code>shop.controller.ts</code> lines 109&ndash;128).</li>
+                <li>Divergence between TypeORM repository entities and ad-hoc <code>dataSource.query(...)</code> writes.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Architectural Recommendation</span>
+            <span class="field-content">
+              Enforce strict layer boundaries via linting (e.g. <code>eslint-plugin-import</code> boundary rules) preventing controllers from importing <code>dataSource</code> directly. Move all raw database queries into dedicated service or repository modules.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card antipattern">
+        <div class="pattern-header">
+          <div class="pattern-title-wrap">
+            <span class="pattern-id">ARCH-02</span>
+            <span class="badge badge-antipattern">Leaky Boundary</span>
+            <span class="badge" style="background: rgba(239,68,68,0.15); color: var(--critical);">Multi-Tenancy &amp; Security</span>
+            <span class="pattern-title">Multi-Tenancy Row-Level Isolation Model</span>
+          </div>
+        </div>
+        <div class="pattern-meta">
+          <span><strong>Scope:</strong> Cross-Tenant Data Boundary</span>
+          <span><strong>Model:</strong> Shared Database with Tenant ID (school_id) Filtering</span>
+          <span><strong>Risk Level:</strong> High (Data Exposure)</span>
+        </div>
+        <div class="pattern-body">
+          <div class="field-block">
+            <span class="field-label">Architectural Rationale &amp; Implementation</span>
+            <span class="field-content">
+              Multi-tenancy is implemented through row-level scoping: all core tables (<code>yii_shop</code>, <code>yii_shop_users</code>, <code>yii_orders</code>) contain a <code>school_id</code> column. Authenticated requests extract <code>schoolId</code> from verified JWT claims in <code>isAuthenticated.ts</code>, and services inject <code>WHERE school_id = ?</code> into queries.
+            </span>
+          </div>
+          <div class="pattern-grid">
+            <div class="pattern-subcard">
+              <h4>Architectural Strengths</h4>
+              <ul style="padding-left: 1.1rem; font-size: 0.83rem; color: var(--text);">
+                <li>Cost-effective shared database architecture supporting multi-school operations.</li>
+                <li>Session token cryptographically binds the user to their authorized tenant (school).</li>
+              </ul>
+            </div>
+            <div class="pattern-subcard">
+              <h4>Architectural Leaks &amp; Vulnerabilities</h4>
+              <ul style="padding-left: 1.1rem; font-size: 0.83rem; color: var(--text);">
+                <li>No automated schema-level or ORM-level tenant enforcement (e.g. PostgreSQL RLS or TypeORM subscriber).</li>
+                <li>Lookup queries relying on developer discipline have missed tenant filters (e.g. <code>yii_financial_year</code>), returning cross-tenant records.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Architectural Recommendation</span>
+            <span class="field-content">
+              Introduce a global tenant context wrapper or TypeORM query subscriber that automatically appends <code>school_id</code> to all queries, removing the risk of manual omission in ad-hoc queries.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOFTWARE DESIGN PATTERNS -->
+    <section class="report-section" id="section-design-patterns">
+      <div class="section-header">
+        <h2>SOFTWARE DESIGN PATTERNS</h2>
+        <span class="section-count">5 Patterns Evaluated</span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 1.25rem; line-height: 1.5;">
+        Catalog of software design patterns (Creational, Structural, Behavioral) detected across the codebase with structural evidence, location references, and assessment of design quality.
+      </p>
+
+      <!-- Design Patterns Summary Table -->
+      <table class="systemic-summary-table" style="margin-bottom: 1.5rem;">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Pattern Name</th>
+            <th style="width: 14%;">Category</th>
+            <th style="width: 12%;">Status</th>
+            <th style="width: 24%;">Implementation Files</th>
+            <th style="width: 30%;">Pattern Intent &amp; Quality Assessment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Factory Method / Transformer</strong></td>
+            <td>Creational</td>
+            <td><span class="badge badge-confirmed">CONFIRMED</span></td>
+            <td><code>utils/cash-payments.utils.ts</code>, <code>student-edit-payload.ts</code></td>
+            <td>Encapsulates construction and formatting of complex API response and database payload objects. Clean separation of formatting logic.</td>
+          </tr>
+          <tr>
+            <td><strong>Singleton Connection Pool</strong></td>
+            <td>Creational</td>
+            <td><span class="badge badge-confirmed">CONFIRMED</span></td>
+            <td><code>server/db/dataSource.ts</code>, <code>logger.ts</code></td>
+            <td>Single shared TypeORM <code>DataSource</code> instance and Winston logger reused across the application runtime. High resource efficiency.</td>
+          </tr>
+          <tr>
+            <td><strong>Middleware Chain of Responsibility</strong></td>
+            <td>Behavioral</td>
+            <td><span class="badge badge-confirmed">CONFIRMED</span></td>
+            <td><code>server/app.ts</code>, <code>middlewares/</code></td>
+            <td>Sequential request interception for authentication, request logging, and payload validation. Decouples transport filters from route handlers.</td>
+          </tr>
+          <tr>
+            <td><strong>Repository / Data Access Object</strong></td>
+            <td>Structural</td>
+            <td><span class="badge badge-fragmented">FRAGMENTED</span></td>
+            <td><code>db/entity/</code>, <code>cash-payments.service.ts</code></td>
+            <td>TypeORM Entity repositories co-exist with direct raw SQL query runners, resulting in fragmented data access and mismatched table definitions.</td>
+          </tr>
+          <tr>
+            <td><strong>Strategy Pattern (Payment Resolution)</strong></td>
+            <td>Behavioral</td>
+            <td><span class="badge badge-candidate">CANDIDATE</span></td>
+            <td><code>cash-payments.utils.ts</code> (resolvePaymentTypeInfo)</td>
+            <td>Diverges payment handling based on payment type, but implemented via brittle substring checks on user comments rather than polymorphic dispatch.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Design Pattern Detail Cards -->
+      <div class="pattern-card confirmed">
+        <div class="pattern-header">
+          <div class="pattern-title-wrap">
+            <span class="pattern-id">DP-01</span>
+            <span class="badge badge-confirmed">Confirmed</span>
+            <span class="badge" style="background: rgba(56,189,248,0.15); color: var(--primary);">Creational</span>
+            <span class="pattern-title">Factory Method / Object Transformer (Response &amp; Payload Mappers)</span>
+          </div>
+        </div>
+        <div class="pattern-meta">
+          <span><strong>Files:</strong> <code>utils/cash-payments.utils.ts</code>, <code>shop.service.ts</code></span>
+          <span><strong>Symbols:</strong> <code>formatShopItemResponse</code>, <code>buildStudentEditPayload</code></span>
+        </div>
+        <div class="pattern-body">
+          <div class="field-block">
+            <span class="field-label">Problem Solved</span>
+            <span class="field-content">
+              Converts low-level raw relational database records into sanitized, camelCase API DTOs with consistent type coercions and calculated fields (e.g. status formatting, date conversion, price calculations).
+            </span>
+          </div>
+          <div class="field-block">
+            <span class="field-label">Representative Code Evidence</span>
+            <div class="evidence-block">
+              <code class="evidence-code">export const formatShopItem = (item: any): ShopItemDTO => ({
+  id: item.id,
+  name: item.name,
+  status: formatStatus(item.published, item.trashed),
+  price: Number(item.price) || 0,
+  sepaDd: Boolean(Number(item.is_sepa_dd)),
+  createdAt: item.created_at ? new Date(item.created_at).toISOString() : null,
+});</code>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Quality Assessment &amp; Guidance</span>
+            <span class="field-content">
+              Strong pattern that prevents raw database column names from leaking to client applications. Ensure all transformation factories have complete unit test suites to guard against silent property omissions.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card fragmented">
+        <div class="pattern-header">
+          <div class="pattern-title-wrap">
+            <span class="pattern-id">DP-02</span>
+            <span class="badge badge-fragmented">Fragmented</span>
+            <span class="badge" style="background: rgba(234,179,8,0.15); color: var(--medium);">Structural</span>
+            <span class="pattern-title">Repository Pattern vs. Direct Raw SQL Query Runners</span>
+          </div>
+        </div>
+        <div class="pattern-meta">
+          <span><strong>Files:</strong> <code>YiiShopCashPayments.ts</code>, <code>cash-payments.service.ts</code>, <code>student-lookup.service.ts</code></span>
+          <span><strong>Consistency:</strong> Fragmented across services</span>
+        </div>
+        <div class="pattern-body">
+          <div class="field-block">
+            <span class="field-label">Problem &amp; Pattern Divergence</span>
+            <span class="field-content">
+              While TypeORM entity classes (<code>@Entity</code>) are defined to represent the data model, services frequently bypass the ORM repository methods to execute raw SQL strings via <code>dataSource.query(...)</code>. This creates a dual data-access pattern where entities and queries can silently diverge.
+            </span>
+          </div>
+          <div class="code-comparison-grid">
+            <div class="code-box-good">
+              <div class="code-box-title">Repository Abstraction (ORM)</div>
+              <pre class="code-snippet">// TypeORM Repository
+const shopUser = await repo.findOne({
+  where: { id, schoolId },
+  relations: ['cashPayments']
+});</pre>
+            </div>
+            <div class="code-box-bad">
+              <div class="code-box-title">Ad-Hoc Raw SQL Bypass</div>
+              <pre class="code-snippet">// Direct Raw SQL Bypass
+await dataSource.query(
+  'SELECT * FROM yii_shop_cash_payments WHERE ...'
+); // Bypasses entity lifecycle &amp; hooks</pre>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Remediation Guidance</span>
+            <span class="field-content">
+              Standardize on a single data access strategy. If TypeORM entities are maintained, all queries and relations should route through TypeORM Repositories or QueryBuilders to guarantee single-source schema mappings.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CODING PATTERNS & CONVENTIONS -->
+    <section class="report-section" id="section-coding-patterns">
+      <div class="section-header">
+        <h2>CODING PATTERNS &amp; CONVENTIONS</h2>
+        <span class="section-count">5 Convention Areas</span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 1.25rem; line-height: 1.5;">
+        Analysis of implementation idioms, coding standards, and recurring conventions observed across frontend, backend, database, and concurrency layers.
+      </p>
+
+      <!-- Coding Patterns Summary Table -->
+      <table class="systemic-summary-table" style="margin-bottom: 1.5rem;">
+        <thead>
+          <tr>
+            <th style="width: 22%;">Convention / Pattern</th>
+            <th style="width: 14%;">Domain Area</th>
+            <th style="width: 16%;">Consistency Level</th>
+            <th style="width: 24%;">Observed Habit / Rule</th>
+            <th style="width: 24%;">Impact &amp; Quality Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Standardized API Response Envelopes</strong></td>
+            <td>Backend / API</td>
+            <td><span class="badge badge-consistent">CONSISTENT (&ge;70%)</span></td>
+            <td>Controllers return <code>{ success: true, data: ... }</code> or throw handled errors.</td>
+            <td>Predictable contract for frontend clients; simplifies client-side interceptors.</td>
+          </tr>
+          <tr>
+            <td><strong>Database Bulk Operations &amp; Batching</strong></td>
+            <td>Concurrency / DB</td>
+            <td><span class="badge badge-fragmented">FRAGMENTED</span></td>
+            <td>Mixed between multi-row <code>VALUES (...),(...)</code> and serial <code>await</code> in loops.</td>
+            <td>N+1 loop calls cause query latency spikes and database connection exhaustion.</td>
+          </tr>
+          <tr>
+            <td><strong>Soft Deletion via 'trashed' Column</strong></td>
+            <td>Database</td>
+            <td><span class="badge badge-consistent">CONSISTENT (&ge;70%)</span></td>
+            <td>All queries filter <code>trashed = 0</code>; deletion updates <code>trashed = 1</code>.</td>
+            <td>Preserves audit trails and avoids cascading relational foreign key deletions.</td>
+          </tr>
+          <tr>
+            <td><strong>Transaction Isolation on Multi-Row Writes</strong></td>
+            <td>Database Integrity</td>
+            <td><span class="badge badge-antipattern">ANTI-PATTERN</span></td>
+            <td>State changes spanning multiple entities run without <code>transaction()</code> wrappers.</td>
+            <td>Creates race conditions (TOCTOU) and leaves orphaned partial writes on error.</td>
+          </tr>
+          <tr>
+            <td><strong>Request Payload Schema Validation</strong></td>
+            <td>API &amp; Security</td>
+            <td><span class="badge badge-consistent">CONSISTENT (&ge;70%)</span></td>
+            <td>Routes validate body and query via Joi schemas before invoking controllers.</td>
+            <td>Blocks malformed inputs at boundary. Minor pagination cap inconsistency (100 vs 500).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Coding Pattern Detail Cards -->
+      <div class="pattern-card fragmented">
+        <div class="pattern-header">
+          <div class="pattern-title-wrap">
+            <span class="pattern-id">CP-01</span>
+            <span class="badge badge-fragmented">Fragmented</span>
+            <span class="badge" style="background: rgba(56,189,248,0.15); color: var(--primary);">Concurrency &amp; Database</span>
+            <span class="pattern-title">Asynchronous Loop Iteration: Serial Await vs. Batched Insertion</span>
+          </div>
+        </div>
+        <div class="pattern-meta">
+          <span><strong>Files Affected:</strong> <code>cash-payments.service.ts</code>, <code>student-lookup.service.ts</code></span>
+          <span><strong>Linters Affected:</strong> ESLint (no-await-in-loop suppressed)</span>
+        </div>
+        <div class="pattern-body">
+          <div class="field-block">
+            <span class="field-label">Convention Description</span>
+            <span class="field-content">
+              When processing bulk payment items, two competing conventions exist: <code>bulkPayStudentItems</code> compiles all rows into an array for a single batched SQL query, while <code>recordDiscountPayment</code> and <code>recordStandardCashPayment</code> use serial <code>await</code> inside <code>for</code>-loops with file-level linter suppressions.
+            </span>
+          </div>
+          <div class="code-comparison-grid">
+            <div class="code-box-good">
+              <div class="code-box-title">&check; Established Best Practice (Batched Array)</div>
+              <pre class="code-snippet">// student-lookup.service.ts:
+const values = items.map(i => [i.userId, i.amount, ...]);
+await queryRunner.query(
+  `INSERT INTO yii_shop_cash_payments (user_id, amount) VALUES ?`,
+  [values]
+); // 1 single database roundtrip</pre>
+            </div>
+            <div class="code-box-bad">
+              <div class="code-box-title">&cross; Anti-Pattern Violation (Serial Await Loop)</div>
+              <pre class="code-snippet">// cash-payments.service.ts:
+/* eslint-disable no-await-in-loop */
+for (let i = 0; i &lt; shopUsers.length; i += 1) {
+  await queryRunner.query(
+    `INSERT INTO yii_shop_cash_payments (...) VALUES (?, ...)`,
+    [shopUser.id, ...]
+  ); // N serial roundtrips
+}</pre>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Coding Standard Rule</span>
+            <span class="field-content">
+              Never use <code>await</code> inside synchronous loop constructs for database operations. Always accumulate rows and dispatch single bulk <code>INSERT ... VALUES (...),(...)</code> queries or utilize <code>Promise.all()</code> for independent concurrent tasks.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-card antipattern">
+        <div class="pattern-header">
+          <div class="pattern-title-wrap">
+            <span class="pattern-id">CP-02</span>
+            <span class="badge badge-antipattern">Anti-Pattern</span>
+            <span class="badge" style="background: rgba(239,68,68,0.15); color: var(--critical);">Data Integrity</span>
+            <span class="pattern-title">Check-Then-Act State Mutation Without Transaction Boundaries</span>
+          </div>
+        </div>
+        <div class="pattern-meta">
+          <span><strong>Files Affected:</strong> <code>student-lookup.service.ts</code></span>
+          <span><strong>Vulnerability:</strong> Time-of-Check to Time-of-Use (TOCTOU) Race Condition</span>
+        </div>
+        <div class="pattern-body">
+          <div class="field-block">
+            <span class="field-label">Convention Description</span>
+            <span class="field-content">
+              Service operations perform a read check (e.g. verifying an item is not already assigned to a student or checking family constraints) followed by an insert/update in separate database round-trips without an enclosing ACID transaction or row locks.
+            </span>
+          </div>
+          <div class="code-comparison-grid">
+            <div class="code-box-good">
+              <div class="code-box-title">&check; Atomic Transactional Pattern</div>
+              <pre class="code-snippet">await dataSource.transaction(async (manager) => {
+  const existing = await manager.findOne(YiiShopUsers, {
+    where: { studentId, itemId },
+    lock: { mode: 'pessimistic_write' }
+  });
+  if (existing) throw new ConflictError();
+  await manager.save(newItem);
+});</pre>
+            </div>
+            <div class="code-box-bad">
+              <div class="code-box-title">&cross; Unsafe Check-Then-Act Violation</div>
+              <pre class="code-snippet">// student-lookup.service.ts:
+const existing = await repo.findOne(...);
+// &larr; Concurrent request executes here
+if (!existing) {
+  await repo.save(newItem); // Duplicates created!
+}</pre>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Coding Standard Rule</span>
+            <span class="field-content">
+              All multi-step read-validate-write mutations must execute inside <code>dataSource.transaction()</code> with appropriate isolation levels or pessimistic locks to prevent concurrency anomalies.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. SYSTEMIC PATTERNS & CROSS-CUTTING ROOT CAUSES (DEEPLY DESCRIPTIVE) -->
+    <section class="report-section" id="section-systemic">
+      <div class="section-header">
+        <h2>SYSTEMIC PATTERNS &amp; CROSS-CUTTING ROOT CAUSES</h2>
+        <span class="section-count">8 Systemic Patterns Identified</span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 1.25rem; line-height: 1.5;">
+        Systemic patterns identify recurring design flaws, structural divergences, and cross-cutting defects that span multiple files. Addressing these root causes systematically resolves dozens of local manifestations and prevents future regressions.
+      </p>
+
+      <!-- Upgraded Highly Descriptive Systemic Patterns Overview Table -->
+      <table class="systemic-summary-table">
+        <thead>
+          <tr>
+            <th style="width: 11%;">Pattern ID</th>
+            <th style="width: 17%;">Pattern &amp; Category</th>
+            <th style="width: 9%;">Severity</th>
+            <th style="width: 24%;">Root Cause Mechanism</th>
+            <th style="width: 19%;">Systemic Blast Radius &amp; Risk</th>
+            <th style="width: 20%;">Strategic Architectural Remediation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="#SYS-RATE-001" style="color: var(--primary); font-weight: 700; text-decoration: none;">SYS-RATE-001</a></td>
+            <td><strong>Global Rate Limiter Disabled</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">Security / Flood Protection</span></td>
+            <td><span class="badge badge-critical">CRITICAL</span><br><span style="font-size: 0.70rem; color: var(--text-muted);">Conf: 1.00</span></td>
+            <td>Rate limiter middleware is imported and configured but commented out at the root Express application entrypoint.</td>
+            <td>All payment, refund, and bulk-pay endpoints are exposed to automated brute-force, request flooding, and DoS.</td>
+            <td>Uncomment global rate limiter; bind strict per-route tier (20 req/60s) to all state-changing financial routes.</td>
+          </tr>
+          <tr>
+            <td><a href="#SYS-CORS-001" style="color: var(--primary); font-weight: 700; text-decoration: none;">SYS-CORS-001</a></td>
+            <td><strong>Wildcard CORS Origin</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">Security / Origin Control</span></td>
+            <td><span class="badge badge-critical">CRITICAL</span><br><span style="font-size: 0.70rem; color: var(--text-muted);">Conf: 1.00</span></td>
+            <td><code>cors()</code> middleware invoked with no configuration options, defaulting to <code>Access-Control-Allow-Origin: *</code>.</td>
+            <td>Enables cross-origin scripts from any domain to initiate requests against authenticated shop endpoints.</td>
+            <td>Configure CORS with an explicit domain allowlist parsed from environment configuration with credentials validation.</td>
+          </tr>
+          <tr>
+            <td><a href="#SYS-DB-001" style="color: var(--primary); font-weight: 700; text-decoration: none;">SYS-DB-001</a></td>
+            <td><strong>ORM Entity Mapped to Wrong Table</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">Database / Data Integrity</span></td>
+            <td><span class="badge badge-critical">CRITICAL</span><br><span style="font-size: 0.70rem; color: var(--text-muted);">Conf: 1.00</span></td>
+            <td><code>@Entity('yii_shop_cash')</code> maps to table <code>yii_shop_cash</code> while all raw SQL writes to <code>yii_shop_cash_payments</code>.</td>
+            <td>Data written by payment services is invisible to ORM entity queries; relations load stale or empty sets.</td>
+            <td>Verify the authoritative production table; synchronize <code>@Entity</code> definition with all raw SQL target tables.</td>
+          </tr>
+          <tr>
+            <td><a href="#SYS-EXPORT-001" style="color: var(--primary); font-weight: 700; text-decoration: none;">SYS-EXPORT-001</a></td>
+            <td><strong>Unbounded Export Queries</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">Performance / Scalability</span></td>
+            <td><span class="badge badge-high">MAJOR</span><br><span style="font-size: 0.70rem; color: var(--text-muted);">Conf: 1.00</span></td>
+            <td>Export endpoints accept or default to <code>limit: undefined</code> or <code>100000</code>, loading entire tables synchronously into RAM.</td>
+            <td>Memory exhaustion (OOM), event-loop starvation, and server crashes during concurrent multi-tenant export requests.</td>
+            <td>Enforce cursor-based database streaming or offload bulk exports to asynchronous queue workers with pagination limits.</td>
+          </tr>
+          <tr>
+            <td><a href="#SYS-TENANT-001" style="color: var(--primary); font-weight: 700; text-decoration: none;">SYS-TENANT-001</a></td>
+            <td><strong>Cross-Tenant Data Leakage</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">Multi-Tenancy / Isolation</span></td>
+            <td><span class="badge badge-high">MAJOR</span><br><span style="font-size: 0.70rem; color: var(--text-muted);">Conf: 1.00</span></td>
+            <td>Lookup query in controller omits the <code>school_id</code> predicate, querying purely on <code>trashed = 0</code>.</td>
+            <td>Users from School A receive financial records belonging to School B, with capability to associate items across tenants.</td>
+            <td>Bind <code>req.user.schoolId</code> to all relational lookup queries; validate cross-entity tenant ownership on write.</td>
+          </tr>
+          <tr>
+            <td><a href="#SYS-SCHEMA-001" style="color: var(--primary); font-weight: 700; text-decoration: none;">SYS-SCHEMA-001</a></td>
+            <td><strong>Column Type Boolean Mappings</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">Database / Schema Contract</span></td>
+            <td><span class="badge badge-high">MAJOR</span><br><span style="font-size: 0.70rem; color: var(--text-muted);">Conf: 0.90</span></td>
+            <td>Numeric enum columns (<code>payment_status</code>, <code>pay_no</code>) mapped as <code>boolean</code> in TypeORM entity definitions.</td>
+            <td>TypeORM coerces values &gt;1 to <code>true</code>; numeric comparisons against enum states (&gt;1) evaluate to false, resetting counters.</td>
+            <td>Correct entity column types from <code>boolean</code> to <code>number</code> with explicit integer types (<code>tinyint</code> / <code>smallint</code>).</td>
+          </tr>
+          <tr>
+            <td><a href="#SYS-CONTRACT-001" style="color: var(--primary); font-weight: 700; text-decoration: none;">SYS-CONTRACT-001</a></td>
+            <td><strong>List vs Detail API Contract Divergence</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">API Contract / Consistency</span></td>
+            <td><span class="badge badge-high">MAJOR</span><br><span style="font-size: 0.70rem; color: var(--text-muted);">Conf: 0.95</span></td>
+            <td>List and detail endpoints format the same entity using divergent key names (<code>isSepaDd</code> vs <code>sepaDd</code>) and types (int vs string status).</td>
+            <td>Breaks frontend UI consumers when switching from list views to detail drawers; requires fragile client-side normalizers.</td>
+            <td>Implement a single shared response DTO transformer (e.g. <code>formatShopItemDTO</code>) invoked by all endpoints.</td>
+          </tr>
+          <tr>
+            <td><a href="#SYS-RACE-001" style="color: var(--primary); font-weight: 700; text-decoration: none;">SYS-RACE-001</a></td>
+            <td><strong>Check-Then-Act Without Transactions</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">Concurrency / Integrity</span></td>
+            <td><span class="badge badge-high">MAJOR</span><br><span style="font-size: 0.70rem; color: var(--text-muted);">Conf: 0.90</span></td>
+            <td>Concurrent state checks and assignment updates occur outside atomic transaction blocks without row locking.</td>
+            <td>Concurrent user submissions bypass business constraints (e.g. one-per-family limit), creating duplicate records.</td>
+            <td>Wrap check-then-act workflows in <code>dataSource.transaction()</code> with pessimistic write locks on checked rows.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Comprehensive Deep-Dive Systemic Pattern Detail Cards -->
+      <h3 style="font-size: 1rem; color: var(--text); font-weight: 700; margin: 1.5rem 0 0.75rem 0;">Detailed Systemic Pattern Breakdowns</h3>
+
+      <!-- SYS-RATE-001 Card -->
+      <div class="systemic-card critical" id="SYS-RATE-001">
+        <div class="systemic-header">
+          <div class="finding-title-group">
+            <span class="finding-id">SYS-RATE-001</span>
+            <span class="badge badge-critical">Critical</span>
+            <span class="badge" style="background: rgba(56,189,248,0.15); color: var(--primary);">Security / Flood Protection</span>
+            <span class="systemic-title">Rate Limiter Permanently Disabled Globally &mdash; Zero Abuse Protection on Payment Routes</span>
+          </div>
+        </div>
+        <div class="systemic-meta">
+          <span><strong>Files Affected:</strong> <code>server/app.ts</code> (line 26), all route controllers</span>
+          <span><strong>Category:</strong> Defense-in-Depth Failure</span>
+          <span><strong>Confidence:</strong> 1.00</span>
+        </div>
+        <div class="systemic-body">
+          <div class="field-block">
+            <span class="field-label">Root Cause Mechanism</span>
+            <span class="field-content">
+              The rate limiter middleware was imported and configured via <code>express-rate-limit</code>, but commented out in <code>server/app.ts</code> during testing or development and never re-enabled. Consequently, every route in the application operates without request rate boundaries.
+            </span>
+          </div>
+          <div class="field-block">
+            <span class="field-label">Systemic Blast Radius &amp; Risk</span>
+            <span class="field-content">
+              Affects all financial payment endpoints including <code>POST /cash-payments</code>, <code>POST /student-lookup/bulk-pay</code>, and refund endpoints. Automated scripts can rapidly flood the database with bogus transactions, brute-force student lookup identifiers, or starve database connections.
+            </span>
+          </div>
+          <div class="field-block">
+            <span class="field-label">Concrete Code Evidence</span>
+            <div class="evidence-block">
+              <code class="evidence-code">// server/app.ts &mdash; line 26:
+import rateLimiter from './middlewares/rateLimiter';
+// ...
+// app.use(rateLimiter); // &larr; Permanently disabled globally</code>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Strategic Architectural Remediation</span>
+            <span class="field-content">
+              1. Re-enable global rate limiting in <code>server/app.ts</code>.<br>
+              2. Implement multi-tiered rate limiting: a baseline tier for general GET lookups (100 req/min) and a strict tier (20 req/min) bound directly to sensitive payment and mutation routes.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SYS-DB-001 Card -->
+      <div class="systemic-card critical" id="SYS-DB-001">
+        <div class="systemic-header">
+          <div class="finding-title-group">
+            <span class="finding-id">SYS-DB-001</span>
+            <span class="badge badge-critical">Critical</span>
+            <span class="badge" style="background: rgba(56,189,248,0.15); color: var(--primary);">Database / Data Integrity</span>
+            <span class="systemic-title">ORM Entity Maps to Divergent Table Name &mdash; Reads and Writes Hit Different Database Tables</span>
+          </div>
+        </div>
+        <div class="systemic-meta">
+          <span><strong>Files Affected:</strong> <code>YiiShopCashPayments.ts</code> (line 8), <code>cash-payments.service.ts</code>, <code>student-lookup.service.ts</code></span>
+          <span><strong>Category:</strong> Schema / Application Divergence</span>
+          <span><strong>Confidence:</strong> 1.00</span>
+        </div>
+        <div class="systemic-body">
+          <div class="field-block">
+            <span class="field-label">Root Cause Mechanism</span>
+            <span class="field-content">
+              The TypeORM entity <code>YiiShopCashPayments</code> is decorated with <code>@Entity('yii_shop_cash')</code>. However, all application services executing SQL write to table <code>yii_shop_cash_payments</code>. Because TypeORM entity queries target <code>yii_shop_cash</code> while service queries target <code>yii_shop_cash_payments</code>, relational queries executed through ORM models return empty or completely different data.
+            </span>
+          </div>
+          <div class="field-block">
+            <span class="field-label">Systemic Blast Radius &amp; Risk</span>
+            <span class="field-content">
+              Severe data integrity defect. Any code path attempting to read related payment records via <code>shopUser.cashPayments</code> will fail to find records created by the cash payments service. Future migrations generated by TypeORM will target the wrong database schema object.
+            </span>
+          </div>
+          <div class="field-block">
+            <span class="field-label">Concrete Code Evidence</span>
+            <div class="evidence-block">
+              <code class="evidence-code">// server/db/entity/YiiShopCashPayments.ts:
+@Entity('yii_shop_cash') // &larr; Entity maps to table A
+export class YiiShopCashPayments { ... }
+
+// server/api/v2/services/shop/cash-payments.service.ts:
+INSERT INTO yii_shop_cash_payments (...) VALUES (...) // &larr; Service writes to table B!</code>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Strategic Architectural Remediation</span>
+            <span class="field-content">
+              Determine the authoritative table in production. If <code>yii_shop_cash_payments</code> is authoritative, update the entity decorator to <code>@Entity('yii_shop_cash_payments')</code>. Synchronize all raw SQL queries and TypeORM entities to reference the exact same schema table name.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SYS-TENANT-001 Card -->
+      <div class="systemic-card high" id="SYS-TENANT-001">
+        <div class="systemic-header">
+          <div class="finding-title-group">
+            <span class="finding-id">SYS-TENANT-001</span>
+            <span class="badge badge-high">Major</span>
+            <span class="badge" style="background: rgba(56,189,248,0.15); color: var(--primary);">Multi-Tenancy / Isolation</span>
+            <span class="systemic-title">Missing Tenant Scope Filter on Shared Lookup Queries &mdash; Cross-Tenant Data Leakage</span>
+          </div>
+        </div>
+        <div class="systemic-meta">
+          <span><strong>Files Affected:</strong> <code>shop.controller.ts</code> (lines 109&ndash;128), <code>shop.service.ts</code></span>
+          <span><strong>Category:</strong> Leaky Abstraction</span>
+          <span><strong>Confidence:</strong> 1.00</span>
+        </div>
+        <div class="systemic-body">
+          <div class="field-block">
+            <span class="field-label">Root Cause Mechanism</span>
+            <span class="field-content">
+              In multi-tenant systems using shared tables, every query must include the tenant identifier predicate. In <code>shop.controller.ts</code>, the financial year query relies solely on <code>WHERE trashed = 0</code>, omitting the <code>school_id</code> condition. Consequently, any authenticated user receives all financial years across all schools in the system.
+            </span>
+          </div>
+          <div class="field-block">
+            <span class="field-label">Systemic Blast Radius &amp; Risk</span>
+            <span class="field-content">
+              Exposes tenant structure and academic schedules of all enrolled schools. Furthermore, <code>financialYearId</code> is accepted when creating shop items without checking whether that financial year actually belongs to the authenticated school, permitting cross-tenant record tampering.
+            </span>
+          </div>
+          <div class="field-block">
+            <span class="field-label">Concrete Code Evidence</span>
+            <div class="evidence-block">
+              <code class="evidence-code">// server/api/v2/controllers/shop/shop.controller.ts:
+const rawData = await dataSource.query(
+  'SELECT id, year FROM yii_financial_year WHERE trashed = 0 ORDER BY id DESC',
+); // &larr; Zero school_id filtering applied!</code>
+            </div>
+          </div>
+          <div class="field-block rec-block">
+            <span class="field-label">Strategic Architectural Remediation</span>
+            <span class="field-content">
+              1. Add <code>AND school_id = ?</code> with <code>req.user.schoolId</code> to the lookup query.<br>
+              2. Add ownership validation in <code>addShopItem</code> to verify that the chosen <code>financialYearId</code> belongs to the requester's school before persisting.
+            </span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- 6. FINDINGS SUMMARY TABLE -->
